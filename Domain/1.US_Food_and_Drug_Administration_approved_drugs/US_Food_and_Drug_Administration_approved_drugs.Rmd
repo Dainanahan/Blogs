@@ -9,6 +9,16 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## A Drug–Target Network
+- Get FDA-approved drugs and their targets.
+- Generate a bipartite graph of drug–protein interactions
+ In which a drug and a protein are connected to each other if the protein is a known target of the
+drug
+- Generate two biologically relevant network projections. 
+ In the *drug network*, nodes represent drugs, and two drugs are connected to each other if they share at least one target protein.
+ In the complementary *target protein network* (TP network), nodes are proteins, and two proteins
+are connected if they are both targeted by at least one common drug.
+
 ## Definitions
 ### Bipartite Graph
 A bipartite graph, also called a bigraph, is a set of graph vertices decomposed into two disjoint sets such that no two graph vertices within the same set are adjacent [mathworld](http://mathworld.wolfram.com/BipartiteGraph.html). 
