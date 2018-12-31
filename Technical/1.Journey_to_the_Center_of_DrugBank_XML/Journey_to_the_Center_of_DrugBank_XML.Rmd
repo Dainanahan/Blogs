@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Objective
-We will try to take a journey together to explore the wonders of *DrugBank* xml database. How the drugs information structured in different ways inside it and how we can retrive these information using **R**.
+We will try to take a journey together to explore the wonders of *DrugBank* xml database. How the drugs information structured in different ways inside it and how we can retrive these information using **R**. So our purpose is to show how to parse the database and not to be overwhelmed with the domain information. Let us begin.
 
 ## What is DrugBank database
 The DrugBank database is a comprehensive, freely accessible, online database containing information on drugs and drug targets.As both a bioinformatics and a cheminformatics resource, DrugBank combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information [Wikipedia](https://en.wikipedia.org/wiki/DrugBank) and it is in *XML* format.
