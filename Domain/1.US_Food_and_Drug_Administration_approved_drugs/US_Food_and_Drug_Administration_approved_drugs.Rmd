@@ -16,3 +16,6 @@ A bipartite graph, also called a bigraph, is a set of graph vertices decomposed 
 ### Anatomical Therapeutic Chemical (ATC) 
 In the Anatomical Therapeutic Chemical (ATC) classification system, the active substances are divided into different groups according to the organ or system on which they act and their therapeutic, pharmacological and chemical properties. 
 Drugs are classified in groups at five different levels. [who](https://www.who.int/medicines/regulation/medicines-safety/toolkit_atc/en/)
+
+### Human Interactome
+The human interactome is the set of protein–protein interactions (the interactome) that occur in human cells [Wikipedia](https://en.wikipedia.org/wiki/Human_interactome).
