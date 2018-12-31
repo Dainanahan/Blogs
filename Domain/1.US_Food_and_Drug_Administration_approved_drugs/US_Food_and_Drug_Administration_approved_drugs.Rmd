@@ -9,3 +9,5 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Bipartite Graph
+A bipartite graph, also called a bigraph, is a set of graph vertices decomposed into two disjoint sets such that no two graph vertices within the same set are adjacent [mathworld](http://mathworld.wolfram.com/BipartiteGraph.html). 
