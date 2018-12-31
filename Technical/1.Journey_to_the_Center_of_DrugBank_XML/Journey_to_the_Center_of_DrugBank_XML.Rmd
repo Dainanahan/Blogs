@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(data.tree)
 ```
 
 ## Objective
@@ -16,3 +17,22 @@ We will try to take a journey together to explore the wonders of *DrugBank* xml 
 The DrugBank database is a comprehensive, freely accessible, online database containing information on drugs and drug targets.As both a bioinformatics and a cheminformatics resource, DrugBank combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information [Wikipedia](https://en.wikipedia.org/wiki/DrugBank) and it is in *XML* format.
 
 
+## Do you remember your children names
+Each drug in the database is represented by `drug` node which contains beside its associated attributes many children which differ in name, functionality and more importantly to us *structure*. Let us take a peak:
+
+```{r drug_sructure}
+drug <- Node$new("Drug")
+drug$AddChild("Drugbank Id(s)")
+drug$AddChild("Name")
+drug$AddChild("description")
+drug$AddChild("Groups")
+drug$AddChild("References")
+drug$AddChild("synonyms")
+drug$AddChild("products")
+drug$AddChild("mixtures")
+drug$AddChild("categories")
+drug$AddChild("Many others ...")
+plot(drug)
+```
+
+Wow that is a lot
