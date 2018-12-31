@@ -9,3 +9,5 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## What is DrugBank database
+The DrugBank database is a comprehensive, freely accessible, online database containing information on drugs and drug targets.As both a bioinformatics and a cheminformatics resource, DrugBank combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information [Wikipedia](https://en.wikipedia.org/wiki/DrugBank) and it is in *XML* format.
