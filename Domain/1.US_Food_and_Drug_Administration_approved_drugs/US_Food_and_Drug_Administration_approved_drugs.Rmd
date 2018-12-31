@@ -9,6 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## FDA-approved drugs target
+- Get FDA approved drugs.
+- Create figure 1 sections
+
 ## A Drug–Target Network
 - Get FDA-approved drugs and their targets.
 - Generate a bipartite graph of drug–protein interactions
