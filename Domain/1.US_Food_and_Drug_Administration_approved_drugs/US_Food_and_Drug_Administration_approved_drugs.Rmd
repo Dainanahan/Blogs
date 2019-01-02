@@ -7,10 +7,22 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 ## FDA-approved drugs target
 - Get FDA approved drugs.
+
+I can verify the groups from here (https://www.drugbank.ca/drugs), I will need to update the approved number to see how it is done
+```{r fda}
+drugs <- read_csv("data/drugs.csv")
+drugs_groups <- read_csv("data/drug_groups.csv")
+drugs$fda_approved <- is.na(drugs$fda_label)
+table(drugs_groups$text)
+barplot(table(drugs_groups$text))
+```
+
+
 - Create figure 1 sections
 
 ## A Drug–Target Network
