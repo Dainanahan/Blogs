@@ -94,3 +94,40 @@ Then to get the values of all drug nodes using the above function we call `map_d
 drugs <- map_df(drugbank$children, ~drug_df(.x))
 ```
 
+
+## One for All
+As we have seen so far each drug node (record) in drugbank xml database has many children. Lucky for us, there are a lot of similar nodes (children), structure wise. So, we built that generic parser for them:
+
+```{r one_for_all, eval=FALSE}
+drug_sub_df <- function(rec, main_node, seconadary_node = NULL, id = "drugbank-id", byValue = FALSE) {
+    parent_key <- NULL
+    if (!is.null(id)) {
+        parent_key <- xmlValue(rec[id][[1]])
+    }
+
+    if (byValue) {
+        df <- map_df(rec[main_node], xmlValue)
+    } else {
+        if (is.null(seconadary_node) && !is.null(rec[[main_node]])) {
+            df <- xmlToDataFrame(rec[[main_node]], stringsAsFactors = FALSE)
+        } else {
+            df <- xmlToDataFrame(rec[[main_node]][[seconadary_node]], stringsAsFactors = FALSE)
+        }
+
+    }
+
+    if (nrow(df) > 0 && !is.null(parent_key)) {
+        df$parent_key <- parent_key
+    }
+    return(df)
+}
+```
+
+oh, that seems a little complicated. Well not if knew its parameters and how we cann call, so let us explain it bit by bit.
+
+The method takes two mandatory paramaters, that has no default input:
+* `rec` -> current xml child to be parsed.
+* `main_node` -> node, child, to be parsed.
+Here are some examples of just using those two parameters
+
+## put xml examples too.
