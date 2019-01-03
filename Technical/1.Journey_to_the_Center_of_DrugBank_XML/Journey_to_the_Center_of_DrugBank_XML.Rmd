@@ -20,18 +20,31 @@ The DrugBank database is a comprehensive, freely accessible, online database con
 ## Do you remember your children names
 Each drug in the database is represented by `drug` node which contains beside its associated attributes many children which differ in name, functionality and more importantly to us *structure*. Let us take a peak:
 
-```{r drug_sructure, echo=FALSE}
+```{r drug_sructure, echo=FALSE,  fig.width=12}
 drug <- Node$new("Drug")
-drug$AddChild("Drugbank Id(s)")
-drug$AddChild("Name")
-drug$AddChild("description")
-drug$AddChild("Groups")
-drug$AddChild("References")
-drug$AddChild("synonyms")
-drug$AddChild("products")
-drug$AddChild("mixtures")
-drug$AddChild("categories")
-drug$AddChild("Many others ...")
+drug_attrs <- drug$AddChild("Attributes")
+drug_attrs$AddChild("Type")
+drug_attrs$AddChild("Created")
+drug_attrs$AddChild("Updated")
+
+drug_fields <- drug$AddChild("Children")
+drug_fields$AddChild("Drugbank Id(s)")
+drug_fields$AddChild("Name")
+drug_fields$AddChild("description")
+drug_fields$AddChild("Groups")
+drug_fields$AddChild("References")
+drug_fields$AddChild("synonyms")
+drug_fields$AddChild("products")
+drug_fields$AddChild("mixtures")
+drug_fields$AddChild("categories")
+drug_fields$AddChild("Many others ...")
+
+# plotting
+SetGraphStyle(drug, rankdir = "TB")
+SetEdgeStyle(drug, arrowhead = "vee", color = "grey35", penwidth = 2)
+SetNodeStyle(drug, style = "filled,rounded", shape = "box", fillcolor = "GreenYellow", 
+            fontname = "helvetica", tooltip = GetDefaultTooltip, fontcolor = "Firebrick")
+SetNodeStyle(drug$Attributes, fillcolor = "LightBlue", penwidth = "5px")
 plot(drug)
 ```
 
@@ -49,6 +62,10 @@ We will use `purrr` and `XML` packages as follow:
 # Extract drug df
 drug_df <- function(rec) {
   tibble(
+     # drug attribues
+    type = xmlGetAttr(node = rec, name = "type"),
+    created = as.Date(xmlGetAttr(node = rec, name = "created")),
+    updated = as.Date(xmlGetAttr(node = rec, name = "updated")),
     # Each drug has 3 keys to be identified with
     # the primary key is the main key and must be exist
     # the other two keys are optional that is why we
@@ -56,10 +73,6 @@ drug_df <- function(rec) {
     primary_key = xmlValue(rec["drugbank-id"][[1]]),
     secondary_key = ifelse(length(rec["drugbank-id"]) > 1, xmlValue(rec["drugbank-id"][[2]]), NA),
     third_key = ifelse(length(rec["drugbank-id"]) > 2, xmlValue(rec["drugbank-id"][[3]]), NA),
-    
-    type = xmlGetAttr(node = rec, name = "type"),
-    created = as.Date(xmlGetAttr(node = rec, name = "created")),
-    updated = as.Date(xmlGetAttr(node = rec, name = "updated")),
     name = xmlValue(rec[["name"]]),
     description = xmlValue(rec[["description"]]),
     cas_number = xmlValue(rec[["cas-number"]]),

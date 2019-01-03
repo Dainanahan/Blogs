@@ -144,8 +144,8 @@ $(document).ready(function () {
 <div id="do-you-remember-your-children-names" class="section level2">
 <h2>Do you remember your children names</h2>
 <p>Each drug in the database is represented by <code>drug</code> node which contains beside its associated attributes many children which differ in name, functionality and more importantly to us <em>structure</em>. Let us take a peak:</p>
-<div id="htmlwidget-6ba76545b3f5b8271955" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6ba76545b3f5b8271955">{"x":{"diagram":"digraph {\n\n\n\n\n  \"1\" [label = \"Drug\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"Drugbank Id(s)\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"Name\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"4\" [label = \"description\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"5\" [label = \"Groups\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"6\" [label = \"References\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"7\" [label = \"synonyms\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"8\" [label = \"products\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"9\" [label = \"mixtures\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"10\" [label = \"categories\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"11\" [label = \"Many others ...\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"1\"->\"2\" \n  \"1\"->\"3\" \n  \"1\"->\"4\" \n  \"1\"->\"5\" \n  \"1\"->\"6\" \n  \"1\"->\"7\" \n  \"1\"->\"8\" \n  \"1\"->\"9\" \n  \"1\"->\"10\" \n  \"1\"->\"11\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-109a7c9dfb46e6a261ae" style="width:1152px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-109a7c9dfb46e6a261ae">{"x":{"diagram":"digraph {\n\ngraph [rankdir = \"TB\"]\n\n\n\n  \"1\" [label = \"Drug\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Drug\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"2\" [label = \"Attributes\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Attributes\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"3\" [label = \"Type\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Type\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"4\" [label = \"Created\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Created\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"5\" [label = \"Updated\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Updated\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"6\" [label = \"Children\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Children\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"Drugbank Id(s)\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Drugbank Id(s)\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"Name\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Name\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"description\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: description\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"Groups\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Groups\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"11\" [label = \"References\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: References\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"12\" [label = \"synonyms\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: synonyms\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"13\" [label = \"products\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: products\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"14\" [label = \"mixtures\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: mixtures\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"15\" [label = \"categories\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: categories\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"16\" [label = \"Many others ...\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Many others ...\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"1\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"15\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"16\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>Wow that is a lot of children that different in format, size (grand children) beside each drug attributes too. We will start by parsing drug nodes then see how to deal with its children.</p>
 <div id="drug-node-parser" class="section level3">
 <h3>drug node parser</h3>
@@ -153,6 +153,10 @@ $(document).ready(function () {
 <pre class="r"><code># Extract drug df
 drug_df &lt;- function(rec) {
   tibble(
+     # drug attribues
+    type = xmlGetAttr(node = rec, name = &quot;type&quot;),
+    created = as.Date(xmlGetAttr(node = rec, name = &quot;created&quot;)),
+    updated = as.Date(xmlGetAttr(node = rec, name = &quot;updated&quot;)),
     # Each drug has 3 keys to be identified with
     # the primary key is the main key and must be exist
     # the other two keys are optional that is why we
@@ -160,10 +164,6 @@ drug_df &lt;- function(rec) {
     primary_key = xmlValue(rec[&quot;drugbank-id&quot;][[1]]),
     secondary_key = ifelse(length(rec[&quot;drugbank-id&quot;]) &gt; 1, xmlValue(rec[&quot;drugbank-id&quot;][[2]]), NA),
     third_key = ifelse(length(rec[&quot;drugbank-id&quot;]) &gt; 2, xmlValue(rec[&quot;drugbank-id&quot;][[3]]), NA),
-    
-    type = xmlGetAttr(node = rec, name = &quot;type&quot;),
-    created = as.Date(xmlGetAttr(node = rec, name = &quot;created&quot;)),
-    updated = as.Date(xmlGetAttr(node = rec, name = &quot;updated&quot;)),
     name = xmlValue(rec[[&quot;name&quot;]]),
     description = xmlValue(rec[[&quot;description&quot;]]),
     cas_number = xmlValue(rec[[&quot;cas-number&quot;]]),
@@ -177,6 +177,9 @@ drug_df &lt;- function(rec) {
 # a dynamic parameter that is based on its first parameter
 drugs &lt;- map_df(drugbank$children, ~drug_df(.x))</code></pre>
 </div>
+</div>
+<div id="add-color-and-styles-and-attributes" class="section level2">
+<h2>add color and styles and attributes</h2>
 </div>
 
 
