@@ -146,5 +146,32 @@ The method takes two mandatory paramaters, that has no default input:
 * `rec` -> current xml child to be parsed.
 * `main_node` -> node, child, to be parsed.
 Here are some examples of just using those two parameters
+```{r drug_sub_df_1, eval=FALSE}
+drug_groups <- map_df(pkg.env$children, ~drug_sub_df(.x, "groups"))
+drug_products <- map_df(pkg.env$children, ~drug_sub_df(.x, "products"))
+```
 
-## put xml examples too.
+which has the following xml structure
+```{r eval=FALSE, highlight=TRUE}
+<groups>
+  <group>approved</group>
+</groups>
+.
+.
+.
+.
+<products>
+    <product>
+      <name>Refludan</name>
+      <labeller>Bayer</labeller>
+      <ndc-id/>
+      <ndc-product-code/>
+      <!-- other nodes-->
+    </product>
+</product>  
+```
+
+As we notice, the above share the following:
+
+- They are array of groupd nodes.
+- Their direct parent is `drug` node.
