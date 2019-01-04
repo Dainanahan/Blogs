@@ -141,15 +141,30 @@ $(document).ready(function () {
 <h2>What is DrugBank database</h2>
 <p>The DrugBank database is a comprehensive, freely accessible, online database containing information on drugs and drug targets.As both a bioinformatics and a cheminformatics resource, DrugBank combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information <a href="https://en.wikipedia.org/wiki/DrugBank">Wikipedia</a> and it is in <em>XML</em> format.</p>
 </div>
-<div id="do-you-remember-your-children-names" class="section level2">
-<h2>Do you remember your children names</h2>
+<div id="drug-node-do-you-remember-your-children-names" class="section level2">
+<h2>Drug Node (Do you remember your children names)</h2>
 <p>Each drug in the database is represented by <code>drug</code> node which contains beside its associated attributes many children which differ in name, functionality and more importantly to us <em>structure</em>. Let us take a peak:</p>
-<div id="htmlwidget-109a7c9dfb46e6a261ae" style="width:1152px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-109a7c9dfb46e6a261ae">{"x":{"diagram":"digraph {\n\ngraph [rankdir = \"TB\"]\n\n\n\n  \"1\" [label = \"Drug\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Drug\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"2\" [label = \"Attributes\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Attributes\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"3\" [label = \"Type\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Type\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"4\" [label = \"Created\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Created\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"5\" [label = \"Updated\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Updated\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"6\" [label = \"Children\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Children\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"Drugbank Id(s)\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Drugbank Id(s)\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"Name\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Name\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"description\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: description\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"Groups\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Groups\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"11\" [label = \"References\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: References\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"12\" [label = \"synonyms\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: synonyms\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"13\" [label = \"products\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: products\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"14\" [label = \"mixtures\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: mixtures\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"15\" [label = \"categories\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: categories\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"16\" [label = \"Many others ...\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Many others ...\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"1\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"15\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"16\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-<p>Wow that is a lot of children that different in format, size (grand children) beside each drug attributes too. We will start by parsing drug nodes then see how to deal with its children.</p>
+<div id="htmlwidget-9bd98add730f3774b2dd" style="width:1152px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9bd98add730f3774b2dd">{"x":{"diagram":"digraph {\n\ngraph [rankdir = \"TB\"]\n\n\n\n  \"1\" [label = \"Drug\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Drug\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"2\" [label = \"Attributes\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Attributes\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"3\" [label = \"Type\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Type\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"4\" [label = \"Created\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Created\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"5\" [label = \"Updated\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Updated\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"6\" [label = \"Children\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Children\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"Drugbank Id(s)\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Drugbank Id(s)\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"Name\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Name\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"description\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: description\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"Groups\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Groups\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"11\" [label = \"References\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: References\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"12\" [label = \"synonyms\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: synonyms\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"13\" [label = \"products\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: products\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"14\" [label = \"mixtures\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: mixtures\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"15\" [label = \"categories\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: categories\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"16\" [label = \"Many others ...\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: Many others ...\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"1\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"15\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"16\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p>Wow that is a lot of children that different in format, size (grand children) beside each drug attributes too and are written in following xml format.</p>
+<pre class="r"><code>&lt;drug type=&quot;biotech&quot; created=&quot;2005-06-13&quot; updated=&quot;2018-07-02&quot;&gt;
+  &lt;drugbank-id primary=&quot;true&quot;&gt;DB00001&lt;/drugbank-id&gt;
+  &lt;drugbank-id&gt;BTD00024&lt;/drugbank-id&gt;
+  &lt;drugbank-id&gt;BIOD00024&lt;/drugbank-id&gt;
+  &lt;name&gt;Lepirudin&lt;/name&gt;
+  &lt;description&gt;Lepirudin is identical to natural hirudin except for substitution of leucine for isoleucine    at the N-terminal end of the molecule and the absence of a sulfate group on the tyrosine at position 63.    It is produced via yeast cells. Bayer ceased the production of lepirudin (Refludan) effective May 31,       2012.&lt;/description&gt;
+  &lt;cas-number&gt;138068-37-8&lt;/cas-number&gt;
+  &lt;unii&gt;Y43GF64R34&lt;/unii&gt;
+  &lt;state&gt;liquid&lt;/state&gt;
+  &lt;groups&gt;
+    &lt;group&gt;approved&lt;/group&gt;
+  &lt;/groups&gt;
+  &lt;!-- many other children --&gt;
+&lt;/drug&gt;  </code></pre>
+<p>We will start by parsing drug nodes then see how to deal with its children.</p>
 <div id="drug-node-parser" class="section level3">
 <h3>drug node parser</h3>
-<p>Here we created a function that takes an <em>XML</em> rescord as an input and will see how we can extract direct children (that has no grand children) and the drug attributes. We will use <code>purrr</code> and <code>XML</code> packages as follow: * <code>tibble</code> &lt;- construct a <code>tibble</code> structure contains the drug record information. * <code>xmlValue</code> &lt;- Gets the value of given children. * <code>xmlGetAttr</code> &lt;- Gets given xml node given attribute value.</p>
+<p>Here we created a function that takes an <em>XML</em> rescord as an input and will see how we can extract direct children (that has no grand children) and the drug attributes. We will use <code>purrr</code> and <code>XML</code> packages as follow: * <code>tibble</code> -&gt; construct a <code>tibble</code> structure contains the drug record information. * <code>xmlValue</code> –&gt; Gets the value of given children. * <code>xmlGetAttr</code> –&gt; Gets given xml node given attribute value.</p>
 <pre class="r"><code># Extract drug df
 drug_df &lt;- function(rec) {
   tibble(
@@ -178,8 +193,36 @@ drug_df &lt;- function(rec) {
 drugs &lt;- map_df(drugbank$children, ~drug_df(.x))</code></pre>
 </div>
 </div>
-<div id="add-color-and-styles-and-attributes" class="section level2">
-<h2>add color and styles and attributes</h2>
+<div id="one-for-all" class="section level2">
+<h2>One for All</h2>
+<p>As we have seen so far each drug node (record) in drugbank xml database has many children. Lucky for us, there are a lot of similar nodes (children), structure wise. So, we built that generic parser for them:</p>
+<pre class="r"><code>drug_sub_df &lt;- function(rec, main_node, seconadary_node = NULL, id = &quot;drugbank-id&quot;, byValue = FALSE) {
+    parent_key &lt;- NULL
+    if (!is.null(id)) {
+        parent_key &lt;- xmlValue(rec[id][[1]])
+    }
+
+    if (byValue) {
+        df &lt;- map_df(rec[main_node], xmlValue)
+    } else {
+        if (is.null(seconadary_node) &amp;&amp; !is.null(rec[[main_node]])) {
+            df &lt;- xmlToDataFrame(rec[[main_node]], stringsAsFactors = FALSE)
+        } else {
+            df &lt;- xmlToDataFrame(rec[[main_node]][[seconadary_node]], stringsAsFactors = FALSE)
+        }
+
+    }
+
+    if (nrow(df) &gt; 0 &amp;&amp; !is.null(parent_key)) {
+        df$parent_key &lt;- parent_key
+    }
+    return(df)
+}</code></pre>
+<p>oh, that seems a little complicated. Well not if knew its parameters and how we cann call, so let us explain it bit by bit.</p>
+<p>The method takes two mandatory paramaters, that has no default input: * <code>rec</code> -&gt; current xml child to be parsed. * <code>main_node</code> -&gt; node, child, to be parsed. Here are some examples of just using those two parameters</p>
+</div>
+<div id="put-xml-examples-too." class="section level2">
+<h2>put xml examples too.</h2>
 </div>
 
 

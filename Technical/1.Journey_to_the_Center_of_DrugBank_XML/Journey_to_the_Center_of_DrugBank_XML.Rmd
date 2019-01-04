@@ -17,7 +17,7 @@ We will try to take a journey together to explore the wonders of *DrugBank* xml 
 The DrugBank database is a comprehensive, freely accessible, online database containing information on drugs and drug targets.As both a bioinformatics and a cheminformatics resource, DrugBank combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information [Wikipedia](https://en.wikipedia.org/wiki/DrugBank) and it is in *XML* format.
 
 
-## Do you remember your children names
+## Drug Node (Do you remember your children names)
 Each drug in the database is represented by `drug` node which contains beside its associated attributes many children which differ in name, functionality and more importantly to us *structure*. Let us take a peak:
 
 ```{r drug_sructure, echo=FALSE,  fig.width=12}
@@ -48,15 +48,32 @@ SetNodeStyle(drug$Attributes, fillcolor = "LightBlue", penwidth = "5px")
 plot(drug)
 ```
 
-Wow that is a lot of children that different in format, size (grand children) beside each drug attributes too. 
+Wow that is a lot of children that different in format, size (grand children) beside each drug attributes too and are written in following xml format.
+```{r drug_xml, eval=FALSE, highlight=TRUE}
+<drug type="biotech" created="2005-06-13" updated="2018-07-02">
+  <drugbank-id primary="true">DB00001</drugbank-id>
+  <drugbank-id>BTD00024</drugbank-id>
+  <drugbank-id>BIOD00024</drugbank-id>
+  <name>Lepirudin</name>
+  <description>Lepirudin is identical to natural hirudin except for substitution of leucine for isoleucine    at the N-terminal end of the molecule and the absence of a sulfate group on the tyrosine at position 63.    It is produced via yeast cells. Bayer ceased the production of lepirudin (Refludan) effective May 31,       2012.</description>
+  <cas-number>138068-37-8</cas-number>
+  <unii>Y43GF64R34</unii>
+  <state>liquid</state>
+  <groups>
+    <group>approved</group>
+  </groups>
+  <!-- many other children -->
+</drug>  
+```
+
 We will start by parsing drug nodes then see how to deal with its children.
 
 ### drug node parser
 Here we created a function that takes an *XML* rescord as an input and will see how we can extract direct children (that has no grand children) and the drug attributes.
 We will use `purrr` and `XML` packages as follow:
-* `tibble` <- construct a `tibble` structure contains the drug record information.
-* `xmlValue` <- Gets the value of given children.
-* `xmlGetAttr` <- Gets given xml node given attribute value.
+* `tibble` -> construct a `tibble` structure contains the drug record information.
+* `xmlValue` --> Gets the value of given children.
+* `xmlGetAttr` --> Gets given xml node given attribute value.
 
 ```{r drug_node_parser, eval=FALSE}
 # Extract drug df
