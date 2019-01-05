@@ -112,7 +112,7 @@ drugs <- map_df(drugbank$children, ~drug_df(.x))
 ```
 
 
-## One for All
+## Common parser (One for All)
 As we have seen so far each drug node (record) in drugbank xml database has many children. Lucky for us, there are a lot of similar nodes (children), structure wise. So, we built that generic parser for them:
 
 ```{r one_for_all, eval=FALSE}
@@ -146,6 +146,7 @@ drug_sub_df <- function(rec, main_node, seconadary_node = NULL, id = "drugbank-i
 
 oh, that seems a little complicated. Well not if knew its parameters and how we cann call, so let us explain it bit by bit.
 
+### Mandatory paramters
 The method takes two mandatory paramaters, that has no default input:
 * `rec` -> current xml child to be parsed.
 * `main_node` -> node, child, to be parsed.
@@ -179,3 +180,36 @@ As we notice, the above share the following:
 
 - They are array of groupd nodes.
 - Their direct parent is `drug` node.
+
+### Optional parameters
+We have three optional parameters as follow:
+
+#### seconadary_node
+We use this parameter if we are going to address the child by two names like:
+```{r sec_param, eval=FALSE, highlight=TRUE}
+# Here we need the drug articles only inside the drug references
+articles <- drug_sub_df(.x, "general-references", seconadary_node = "articles")
+```
+
+This code parses the following xml snippet
+```{r sec_param_xml, eval=FALSE, highlight=TRUE}
+<references>
+        <articles>
+          <article>
+            <pubmed-id>10505536</pubmed-id>
+            <citation>Turpie AG: Anticoagulants in acute coronary syndromes. Am J Cardiol. 1999 Sep 2;84(5A):2M-6M.</citation>
+          </article>
+         </articles>
+  </references>
+```
+
+#### id
+To determine the `parent key` field which is by default `drugbank-id` as follow:
+```{r third_param, eval=FALSE, highlight=TRUE}
+# get actions inside carriers nodes,
+# the id here is carrier node
+carriers_actions <- drug_sub_df(.x, "actions", id = "id")
+```
+
+
+#### byValue
