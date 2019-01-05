@@ -116,30 +116,26 @@ drugs <- map_df(drugbank$children, ~drug_df(.x))
 As we have seen so far each drug node (record) in drugbank xml database has many children. Lucky for us, there are a lot of similar nodes (children), structure wise. So, we built that generic parser for them:
 
 ```{r one_for_all, eval=FALSE}
-drug_sub_df <- function(rec, main_node, seconadary_node = NULL, id = "drugbank-id", byValue = FALSE) {
-    parent_key <- NULL
-    # Get Children parent if it is not null, which is drug id in most cases
-    if (!is.null(id)) {
-        parent_key <- xmlValue(rec[id][[1]])
-    }
-    # The values are listed directly under the grouping node, no array
-    if (byValue) {
-        df <- map_df(rec[main_node], xmlValue)
-    } else {
-        # data is grouped in array of values and can be accessed directly via one node name
-        if (is.null(seconadary_node) && !is.null(rec[[main_node]])) {
-            df <- xmlToDataFrame(rec[[main_node]], stringsAsFactors = FALSE)
-        } else {
-            # we need to address the child by two names
-            df <- xmlToDataFrame(rec[[main_node]][[seconadary_node]], stringsAsFactors = FALSE)
-        }
-
-    }
-
-    # Assign the parent key to the resultant data frame, if any
-    if (nrow(df) > 0 && !is.null(parent_key)) {
-        df$parent_key <- parent_key
-    }
+drug_sub_df <- function(rec, main_node, seconadary_node = NULL, id = "drugbank-id") {
+  parent_key <- NULL
+  # Get Children parent if it is not null, which is drug id in most cases
+  if (!is.null(id)) {
+  parent_key <- xmlValue(rec[id][[1]])
+  }
+  # data is grouped in array of values and can be accessed directly via one node name
+  if (is.null(seconadary_node) &&
+  !is.null(rec[[main_node]])) {
+  df <- xmlToDataFrame(rec[[main_node]], stringsAsFactors = FALSE)
+  } else {
+  # we need to address the child by two names
+  df <-
+  xmlToDataFrame(rec[[main_node]][[seconadary_node]], stringsAsFactors = FALSE)
+  }
+  
+  # Assign the parent key to the resultant data frame, if any
+  if (nrow(df) > 0 && !is.null(parent_key)) {
+  df$parent_key <- parent_key
+  }
     return(df)
 }
 ```
@@ -210,6 +206,3 @@ To determine the `parent key` field which is by default `drugbank-id` as follow:
 # the id here is carrier node
 carriers_actions <- drug_sub_df(.x, "actions", id = "id")
 ```
-
-
-#### byValue
