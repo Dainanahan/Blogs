@@ -2,7 +2,9 @@
 title: "Journey to the Center of DrugBank XML"
 author: "Mohammed Ali, Ali Ezzat"
 date: "December 31, 2018"
-output: html_document
+output: 
+  html_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -206,3 +208,129 @@ To determine the `parent key` field which is by default `drugbank-id` as follow:
 # the id here is carrier node
 carriers_actions <- drug_sub_df(.x, "actions", id = "id")
 ```
+
+## Special Cases (All for one)
+There are many special structure that need *special* parsing in **drug bank** database. in the remaining of the article we are going to explore some of them.
+
+### Reaction (Left, right, enzymes, what??)
+*Reactions* is a little complex child that contain many different nodes and nodes container as follow:
+
+```{r drug_reactions, echo=FALSE,  fig.width=12}
+reaction <- Node$new("Reaction")
+reaction$AddChild("Sequence")
+left_element <- reaction$AddChild("Left Element")
+left_element$AddChild("Drugbank Id")
+left_element$AddChild("Name")
+
+right_element <- reaction$AddChild("Right Element")
+right_element$AddChild("Drugbank Id")
+right_element$AddChild("Name")
+
+enzymes <- reaction$AddChild("Enzymes")
+enzyme <- enzymes$AddChild("Enzyme")
+enzyme$AddChild("Drugbank Id")
+enzyme$AddChild("Name")
+enzyme$AddChild("uniprot-id")
+
+# plotting
+SetGraphStyle(reaction, rankdir = "TB")
+SetEdgeStyle(reaction, arrowhead = "vee", color = "grey35", penwidth = 2)
+SetNodeStyle(reaction, style = "filled,rounded", shape = "box", fillcolor = "GreenYellow", 
+            fontname = "helvetica", tooltip = GetDefaultTooltip, fontcolor = "Firebrick")
+SetNodeStyle(reaction$Enzymes, fillcolor = "LightBlue", penwidth = "5px")
+plot(reaction)
+```
+
+that represents the following xml
+
+```{r reaction_xml, eval=FALSE, highlight=TRUE}
+<reactions>
+    <reaction>
+      <sequence>1</sequence>
+      <left-element>
+        <drugbank-id>DB00091</drugbank-id>
+        <name>Cyclosporine</name>
+      </left-element>
+      <right-element>
+        <drugbank-id>DBMET00359</drugbank-id>
+        <name>Metabolite AM1</name>
+      </right-element>
+      <enzymes>
+        <enzyme>
+          <drugbank-id>BE0002638</drugbank-id>
+          <name>Cytochrome P450 3A4</name>
+          <uniprot-id>P08684</uniprot-id>
+        </enzyme>
+      </enzymes>
+    </reaction>
+  </reactions>
+```
+
+that parsed in two stages:
+
+* Enzymes are parsed a little as usual:
+
+```{r reactions_enzymes, eval=FALSE, highlight=TRUE}
+reactions_enzymes <- drug_sub_df(.x, "enzymes", id = NULL)
+```
+
+* The rest of nodes which are parsed as follow
+
+```{r reactions_rest_nodes, eval=FALSE, highlight=TRUE}
+get_reactions_rec <- function(r, drug_key) {
+  tibble(
+    sequence = xmlValue(r[["sequence"]]),
+    left_drugbank_id = xmlValue(r[["left-element"]][["drugbank-id"]]),
+    left_drugbank_name = xmlValue(r[["left-element"]][["name"]]),
+    right_drugbank_id = xmlValue(r[["right-element"]][["drugbank-id"]]),
+    right_drugbank_name = xmlValue(r[["right-element"]][["name"]]),
+    parent_key = drug_key
+  )
+}
+
+get_reactions_df <- function(rec) {
+  return(map_df(xmlChildren(rec[["reactions"]]),
+                ~ get_reactions_rec(., xmlValue(rec["drugbank-id"][[1]]))))
+}
+```
+
+### ATC (twins, twins, ..)
+ATC has repated node that differe in values
+```{r atc_code, eval=FALSE, highlight=TRUE}
+  <atc-codes>
+    <atc-code code="B01AE02">
+      <level code="B01AE">Direct thrombin inhibitors</level>
+      <level code="B01A">ANTITHROMBOTIC AGENTS</level>
+      <level code="B01">ANTITHROMBOTIC AGENTS</level>
+      <level code="B">BLOOD AND BLOOD FORMING ORGANS</level>
+    </atc-code>
+  </atc-codes>
+```
+
+we can parse it as follow
+```{r atrc_parser, eval=FALSE, highlight=TRUE}
+get_atc_codes_rec <- function(r, drug_key) {
+  tibble(
+    atc_code = xmlGetAttr(r, name = "code"),
+    level_1 = xmlValue(r[[1]]),
+    code_1 = xmlGetAttr(r[[1]], name = "code"),
+    level_2 = xmlValue(r[[2]]),
+    code_2 = xmlGetAttr(r[[2]], name = "code"),
+    level_3 = xmlValue(r[[3]]),
+    code_3 = xmlGetAttr(r[[3]], name = "code"),
+    level_4 = xmlValue(r[[4]]),
+    code_4 = xmlGetAttr(r[[4]], name = "code"),
+    parent_key = drug_key
+  )
+}
+
+get_atc_codes_df <- function(rec) {
+  return (map_df(xmlChildren(rec[["atc-codes"]]),
+                 ~ get_atc_codes_rec(.x,
+                                     xmlValue(rec["drugbank-id"][[1]]))))
+}
+```
+
+and that conclude our journey in drug bank database, for more you can visit [dbparser](https://github.com/Dainanahan/dbparser)
+
+I hope that you have enjoyed our journey together.
