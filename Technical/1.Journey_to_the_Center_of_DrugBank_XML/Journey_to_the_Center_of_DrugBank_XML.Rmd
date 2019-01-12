@@ -516,7 +516,7 @@ SetNodeStyle(reaction, style = "filled,rounded",
             fontname = "helvetica", tooltip = GetDefaultTooltip, fontcolor = "Firebrick")
 SetNodeStyle(reaction$`<enzymes>`, fillcolor = "LightBlue", penwidth = "5px",
              tooltip = GetDefaultTooltip)
-plot(reaction)
+plot(reactions)
 ```
 
 <p style="color:red;">
