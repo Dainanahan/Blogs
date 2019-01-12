@@ -163,8 +163,9 @@ SetGraphStyle(drug, rankdir = "TB")
 SetEdgeStyle(drug, arrowhead = "vee", color = "grey35", penwidth = 2)
 SetNodeStyle(drug, style = "filled,rounded", shape = "box", 
              fillcolor = "GreenYellow", fontname = "helvetica", 
-             tooltip = GetDefaultTooltip, fontcolor = "Firebrick")
-SetNodeStyle(drug$Attributes, fillcolor = "LightBlue", penwidth = "5px")
+             fontcolor = "Firebrick", tooltip = GetDefaultTooltip, fixedsize = FALSE)
+SetNodeStyle(drug$Attributes, fillcolor = "LightBlue",
+             penwidth = "5px", tooltip = GetDefaultTooltip, fixedsize = FALSE)
 plot(drug)
 ```
 <p style="color:red;">
@@ -533,9 +534,11 @@ enzyme$AddChild("<uniprot-id>")
 # plotting
 SetGraphStyle(reaction, rankdir = "TB")
 SetEdgeStyle(reaction, arrowhead = "vee", color = "grey35", penwidth = 2)
-SetNodeStyle(reaction, style = "filled,rounded", shape = "box", fillcolor = "GreenYellow",
+SetNodeStyle(reaction, style = "filled,rounded",
+             shape = "box", fillcolor = "GreenYellow",
             fontname = "helvetica", tooltip = GetDefaultTooltip, fontcolor = "Firebrick")
-SetNodeStyle(reaction$`<enzymes>`, fillcolor = "LightBlue", penwidth = "5px")
+SetNodeStyle(reaction$`<enzymes>`, fillcolor = "LightBlue", penwidth = "5px",
+             tooltip = GetDefaultTooltip)
 plot(reaction)
 ```
 
