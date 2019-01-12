@@ -15,16 +15,11 @@ library(data.tree)
 
 
 ## Objective
-*DrugBank* is a well-known repository containing high-quality information on 
-drugs and their known targets. The latest release of the *DrugBank* database is
-available for download in XML format 
-[here](https://www.drugbank.ca/releases/latest). 
-
-In this post, we shall take a journey together to explore the **structure** of 
+In this tutorial, we shall take a journey together to explore the **structure** of 
 the *DrugBank* database. We will observe how the drugs information is 
 structured within DrugBank's XML database and see how this information can be 
 retrieved using **R**. Our main purpose here is parsing the database from its 
-containing XML file. Let's begin!
+containing XML file. Let us begin!
 
 -----
 
@@ -74,12 +69,6 @@ the information of the many drugs that constitute the *DrugBank* database.
 To follow along with the code in this tutorial, you may download and use this 
 [XML file](drugbank_record.xml). It is a dummy XML file that contains only a 
 single drug record (i.e. a single `<drug>` node).
-
-<p style="color:red;">
-Note that the file, `drugbank_record.xml` is intended to be downloadable by the 
-user so that they may follow along with this tutorial.
-</p>
-
 -----
 
 ## The `<drug>` node (and its children)
