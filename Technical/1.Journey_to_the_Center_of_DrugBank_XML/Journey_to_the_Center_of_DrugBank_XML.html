@@ -102,6 +102,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -109,14 +112,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -187,12 +250,12 @@ $(document).ready(function () {
     &lt;drug&gt;  ...  &lt;/drug&gt;
 
 &lt;/drugbank&gt;</code></pre>
-<p>To follow along with the code in this tutorial, you may download and use this <a href="drugbank_record.xml">XML file</a>. It is a dummy XML file that contains only a single drug record (i.e. a single <code>&lt;drug&gt;</code> node).</p>
+<p>To follow along with the code in this tutorial, you may download and use this <a href="https://raw.githubusercontent.com/Dainanahan/Blogs/master/Technical/1.Journey_to_the_Center_of_DrugBank_XML/data/drugbank_record.xml">XML file</a>. It is a dummy XML database file that contains only a single drug record (i.e. a single <code>&lt;drug&gt;</code> node). Alternatively, you may instead download and use the entire <em>DrugBank</em> XML database file which is available <a href="https://www.drugbank.ca/releases/latest">here</a>.</p>
 <hr />
 </div>
 <div id="the-drug-node-and-its-children" class="section level2">
 <h2>The <code>&lt;drug&gt;</code> node (and its children)</h2>
-<p>Each drug in the database is represented by a <code>drug</code> node which contains – beside its associated attributes – many <em>children</em> nodes with varying names, properties and, more importantly to us, <em>structures</em>.</p>
+<p>Each drug in the database is represented by a <code>drug</code> node which contains, along with its associated attributes, many <em>children</em> nodes with varying names, properties and (more importantly) <em>structures</em>.</p>
 <p>Below is a portion of a <code>&lt;drug&gt;</code> node as an example.</p>
 <pre class="drug_xml"><code>&lt;drug type=&quot;biotech&quot; created=&quot;2005-06-13&quot; updated=&quot;2018-07-02&quot;&gt;
     &lt;drugbank-id primary=&quot;true&quot;&gt;DB00001&lt;/drugbank-id&gt;
@@ -241,20 +304,20 @@ $(document).ready(function () {
 <li>The <code>&lt;drug&gt;</code> node above includes many other children that, for the moment, have been left out for the sake of simplicity. As we will see, some of those other children are much more complex than the ones shown above. We will find that these children vary greatly in structure; some of them simply contain a single value while others may contain multiple children nodes or sometimes even deeper hierarchies of children nodes within them. All these children nodes may have their own attributes as well (not just the drug node).</li>
 </ul>
 <p>Right now, our current conceptual understanding of the structure of a <code>&lt;drug&gt;</code> node looks something like the figure below.</p>
-<div id="htmlwidget-3d958c8f2f685c5d568b" style="width:1152px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3d958c8f2f685c5d568b">{"x":{"diagram":"digraph {\n\ngraph [rankdir = \"TB\"]\n\n\n\n  \"1\" [label = \"<drug>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <drug>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"2\" [label = \"Attributes\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Attributes\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"3\" [label = \"type\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: type\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"4\" [label = \"created\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: created\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"5\" [label = \"updated\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: updated\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"6\" [label = \"Children\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Children\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"<drugbank-id>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <drugbank-id>*\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <name>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"<description>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <description>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"<cas-number>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <cas-number>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"11\" [label = \"<unii>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <unii>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"12\" [label = \"<state>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <state>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"13\" [label = \"<groups>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <groups>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"14\" [label = \"<group>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <group>*\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"15\" [label = \"Many others ...\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Many others ...\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"1\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"15\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"13\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-cfbf98783ac545ad0685" style="width:1152px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cfbf98783ac545ad0685">{"x":{"diagram":"digraph {\n\ngraph [rankdir = \"TB\"]\n\n\n\n  \"1\" [label = \"<drug>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <drug>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"2\" [label = \"Attributes\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Attributes\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"3\" [label = \"type\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: type\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"4\" [label = \"created\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: created\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"5\" [label = \"updated\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: updated\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"6\" [label = \"Children\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Children\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"<drugbank-id>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <drugbank-id>*\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <name>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"<description>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <description>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"<cas-number>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <cas-number>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"11\" [label = \"<unii>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <unii>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"12\" [label = \"<state>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <state>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"13\" [label = \"<groups>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <groups>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"14\" [label = \"<group>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <group>*\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"15\" [label = \"Many others ...\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Many others ...\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"1\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"15\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"13\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <hr />
 </div>
 <div id="the-drug-node-parser" class="section level2">
 <h2>The <code>&lt;drug&gt;</code> node parser</h2>
-<p>We shall now create a function that takes a drug record as input (in the form of an XML <code>&lt;drug&gt;</code> node) and parses it. We will first focus on extracting the <em>simpler</em> children of the <code>&lt;drug&gt;</code> node (i.e. the ones that consist of a single value). To that end, we will use the following functions of the <code>purrr</code> and <code>XML</code> packages:</p>
+<p>We shall now create a function that takes a drug record as input (in the form of an XML <code>&lt;drug&gt;</code> node) and parses it. We will first focus on extracting the <em>simpler</em> children of the <code>&lt;drug&gt;</code> node (i.e. the ones that consist of a single value). To that end, we will use the following functions of the <code>dplyr</code>, <code>purrr</code> and <code>XML</code> packages:</p>
 <ul>
 <li><code>xmlValue()</code>: gets the <em>content</em> of a given node</li>
-<li><code>xmlGetAttr()</code>: gets a specified <em>attribute</em> of a given node</li>
+<li><code>xmlGetAttr()</code>: gets the specified <em>attribute</em> of a given node</li>
 <li><code>tibble()</code>: constructs a <code>tibble</code> structure containing the information provided to it</li>
 </ul>
-<pre class="r"><code>library(purrr)
-library(XML)
+<pre class="r"><code>library(dplyr)    ## for tibble() function
+library(XML)      ## for xmlValue() and xmlGetAttr() functions
 
 ## Extract drug df
 drug_df &lt;- function(drug) {    ## drug = provided &lt;drug&gt; node
@@ -290,18 +353,18 @@ drug_df &lt;- function(drug) {    ## drug = provided &lt;drug&gt; node
     )
 }</code></pre>
 <p>The above code parses information from a single <code>&lt;drug&gt;</code> node. With the help of the <code>map_df()</code> function, we can automate the information extraction from all the <code>&lt;drug&gt;</code> records. The extracted information will be returned in a data frame (tibble) object containing all the drugs data. Before extracting the data though, we need to load the data first.</p>
-<pre class="r"><code>library(XML)
-drugbank &lt;- xmlParse('drugbank_database.xml')
-drugbank_root &lt;- xmlRoot(drugbank_db)
-all_drugs &lt;- xmlChildren(drugbank_root)</code></pre>
+<pre class="r"><code>drugbank &lt;- xmlParse('drugbank_record.xml')    ## load XML file
+drugbank_root &lt;- xmlRoot(drugbank)             ## get XML root node
+all_drugs &lt;- xmlChildren(drugbank_root)        ## get root's children (drugs)</code></pre>
 <p>Now that XML file has been loaded, let’s extract the drugs’ data. The <code>map_df()</code> function takes two parameters:</p>
 <ul>
-<li><code>drugbank$children</code>: As already mentioned, there is a single <code>&lt;drugbank&gt;</code> node in the XML file, and its children are the <code>&lt;drug&gt;</code> nodes that contain all the drugs data that we are interested in.</li>
-<li><code>drug_df</code>: the method that we created above for the extraction of the drugs’ data from their corresponding <code>&lt;drug&gt;</code> nodes</li>
+<li><code>all_drugs</code>: the list of <code>&lt;drug&gt;</code> nodes that are to be parsed and that contain all the drugs data that we are interested in</li>
+<li><code>drug_df</code>: the method that we created earlier for the extraction of the drugs’ data from their corresponding <code>&lt;drug&gt;</code> nodes</li>
 </ul>
-<pre class="r"><code>## '~' is telling map_df that we are sending the function a dynamic parameter 
-## that is based on its first parameter
-drugs &lt;- map_df(drugbank$children, ~drug_df(.x))</code></pre>
+<pre class="r"><code>library(purrr)    ## for map_df() function
+
+## apply the 'drug_df' function to all the drug records
+drugs &lt;- map_df(all_drugs, ~drug_df(.x))</code></pre>
 <hr />
 </div>
 <div id="common-parser-one-for-all" class="section level2">
@@ -350,14 +413,14 @@ drugs &lt;- map_df(drugbank$children, ~drug_df(.x))</code></pre>
 <p>We break down the details of the above function in the following few sections to show how it would be used in a number of different cases.</p>
 <div id="mandatory-paramters" class="section level3">
 <h3>Mandatory paramters</h3>
-<p>The method takes two mandatory paramaters, that has no default input:</p>
+<p>The <code>drug_sub_df()</code> method takes two mandatory paramaters:</p>
 <ul>
 <li><code>base_node</code>: a <em>base</em> XML node</li>
 <li><code>child_node</code>: a child of the base node to be parsed</li>
 </ul>
 <p>To give a couple of examples, let’s say we want to parse the <code>&lt;groups&gt;</code> and <code>&lt;products&gt;</code> information of all the drugs. The following code would get us the information we want.</p>
-<pre class="r"><code>drug_groups &lt;- map_df(drugbank$children, ~drug_sub_df(.x, &quot;groups&quot;))
-drug_products &lt;- map_df(drugbank$children, ~drug_sub_df(.x, &quot;products&quot;))</code></pre>
+<pre class="r"><code>drug_groups &lt;- map_df(all_drugs, ~drug_sub_df(.x, &quot;groups&quot;))
+drug_products &lt;- map_df(all_drugs, ~drug_sub_df(.x, &quot;products&quot;))</code></pre>
 <p>Note that the XML structure being parsed is as follows.</p>
 <pre class="drug_groups_products_xml"><code>&lt;drug type=&quot;biotech&quot; created=&quot;2005-06-13&quot; updated=&quot;2018-07-02&quot;&gt;
         
@@ -408,21 +471,19 @@ drug_products &lt;- map_df(drugbank$children, ~drug_sub_df(.x, &quot;products&qu
         .
       
 &lt;/drug&gt;  </code></pre>
-<p>In the above example, the nodes that we parsed consist of a groups of similar nodes; that is:</p>
+<p>In the above example, the nodes that we parsed consist of a group of similar <em>homogeneous</em> nodes; that is:</p>
 <ul>
-<li>a <code>&lt;groups&gt;</code> node consists of multiple <code>&lt;group&gt;</code> nodes</li>
-<li>a <code>&lt;products&gt;</code> node consists of multiple <code>&lt;product&gt;</code> nodes</li>
+<li>a <code>&lt;groups&gt;</code> node consisting of multiple <code>&lt;group&gt;</code> nodes</li>
+<li>a <code>&lt;products&gt;</code> node consisting of multiple <code>&lt;product&gt;</code> nodes</li>
 </ul>
 <p>Moreover, the parents of the parsed <code>&lt;groups&gt;</code> and <code>&lt;products&gt;</code> nodes are their corresponding <code>&lt;drug&gt;</code> nodes. The IDs of these parents are then attached to their respective parsed data.</p>
 </div>
 <div id="optional-parameters" class="section level3">
 <h3>Optional parameters</h3>
-<p>We have two optional parameters which are discussed below.</p>
-<div id="sub_child_node" class="section level4">
-<h4>sub_child_node</h4>
-<p>We use this parameter if we are going to address the child by two names like:</p>
+<p>The <code>drug_sub_df()</code> method has two optional parameters: <code>sub_child_node</code> and <code>id</code>.</p>
+<p>The <code>sub_child_node</code> parameter is used when we access a node using two names. Below is an example.</p>
 <pre class="r"><code># Here we need the drug articles only inside the drug references
-articles &lt;- drug_sub_df(.x, &quot;general-references&quot;, sub_child_node = &quot;articles&quot;)</code></pre>
+drug_articles &lt;- map_df(all_drugs, ~drug_sub_df(.x, &quot;general-references&quot;, sub_child_node = &quot;articles&quot;))</code></pre>
 <p>The above code parses the following XML snippet. Note that there are other nodes beneath <code>&lt;general-references&gt;</code> that would not be considered by the above code (i.e. <code>&lt;textbooks&gt;</code> and <code>&lt;links&gt;</code>).</p>
 <pre class="r"><code>&lt;general-references&gt;
     &lt;articles&gt;
@@ -467,18 +528,52 @@ articles &lt;- drug_sub_df(.x, &quot;general-references&quot;, sub_child_node = 
       &lt;/link&gt;
     &lt;/links&gt;
 &lt;/general-references&gt;</code></pre>
-</div>
-<div id="id" class="section level4">
-<h4>id</h4>
-<p>As already implied earlier, this field is used to determine the <code>parent_key</code> field (by default, <code>drugbank-id</code>) to attach to the extracted data. As an example, we parse ???.</p>
-<pre class="r"><code># get actions inside carriers nodes,
-# the id here is carrier node
-targets_actions &lt;- drug_sub_df(.x, &quot;actions&quot;, id = &quot;id&quot;)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<pre><code>##        text parent_key
-## 1 inhibitor  BE0000048</code></pre>
+<p>As for the <code>id</code>, it is used to specify the <code>parent_key</code> field (by default, <code>drugbank-id</code>) to attach to the extracted data. If we have a look at the previously extracted groups, products and articles data, we will find each of the returned items has the <code>drugbank-id</code> of its corresponding drug attached to it in the <code>parent_key</code> column.</p>
+<pre class="r"><code>glimpse(drug_groups)</code></pre>
+<pre><code>Observations: 1
+Variables: 2
+$ text       &lt;chr&gt; &quot;approved&quot;
+$ parent_key &lt;chr&gt; &quot;DB00001&quot;</code></pre>
+<pre class="r"><code>glimpse(drug_products)</code></pre>
+<pre><code>Observations: 5
+Variables: 19
+$ name                     &lt;chr&gt; &quot;Refludan&quot;, &quot;Refludan&quot;, &quot;Refludan&quot;, &quot;Refludan&quot;, &quot;Refludan&quot;
+$ labeller                 &lt;chr&gt; &quot;Bayer&quot;, &quot;Celgene Europe Limited&quot;, &quot;Celgene Europe Limited&quot;, &quot;Celgene Euro...
+$ `ndc-id`                 &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;
+$ `ndc-product-code`       &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;
+$ `dpd-id`                 &lt;chr&gt; &quot;02240996&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;
+$ `ema-product-code`       &lt;chr&gt; &quot;&quot;, &quot;EMEA/H/C/000122&quot;, &quot;EMEA/H/C/000122&quot;, &quot;EMEA/H/C/000122&quot;, &quot;EMEA/H/C/000...
+$ `ema-ma-number`          &lt;chr&gt; &quot;&quot;, &quot;EU/1/97/035/001&quot;, &quot;EU/1/97/035/002&quot;, &quot;EU/1/97/035/003&quot;, &quot;EU/1/97/035/...
+$ `started-marketing-on`   &lt;chr&gt; &quot;2000-01-31&quot;, &quot;1997-03-13&quot;, &quot;1997-03-13&quot;, &quot;1997-03-13&quot;, &quot;1997-03-13&quot;
+$ `ended-marketing-on`     &lt;chr&gt; &quot;2013-07-26&quot;, &quot;2012-07-27&quot;, &quot;2012-07-27&quot;, &quot;2012-07-27&quot;, &quot;2012-07-27&quot;
+$ `dosage-form`            &lt;chr&gt; &quot;Powder, for solution&quot;, &quot;Injection, solution, concentrate&quot;, &quot;Injection, so...
+$ strength                 &lt;chr&gt; &quot;50 mg&quot;, &quot;50 mg&quot;, &quot;50 mg&quot;, &quot;20 mg&quot;, &quot;20 mg&quot;
+$ route                    &lt;chr&gt; &quot;Intravenous&quot;, &quot;Intravenous&quot;, &quot;Intravenous&quot;, &quot;Intravenous&quot;, &quot;Intravenous&quot;
+$ `fda-application-number` &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;
+$ generic                  &lt;chr&gt; &quot;false&quot;, &quot;false&quot;, &quot;false&quot;, &quot;false&quot;, &quot;false&quot;
+$ `over-the-counter`       &lt;chr&gt; &quot;false&quot;, &quot;false&quot;, &quot;false&quot;, &quot;false&quot;, &quot;false&quot;
+$ approved                 &lt;chr&gt; &quot;true&quot;, &quot;false&quot;, &quot;false&quot;, &quot;false&quot;, &quot;false&quot;
+$ country                  &lt;chr&gt; &quot;Canada&quot;, &quot;EU&quot;, &quot;EU&quot;, &quot;EU&quot;, &quot;EU&quot;
+$ source                   &lt;chr&gt; &quot;DPD&quot;, &quot;EMA&quot;, &quot;EMA&quot;, &quot;EMA&quot;, &quot;EMA&quot;
+$ parent_key               &lt;chr&gt; &quot;DB00001&quot;, &quot;DB00001&quot;, &quot;DB00001&quot;, &quot;DB00001&quot;, &quot;DB00001&quot;</code></pre>
+<pre class="r"><code>glimpse(drug_articles)</code></pre>
+<pre><code>Observations: 3
+Variables: 3
+$ `pubmed-id` &lt;chr&gt; &quot;16244762&quot;, &quot;16690967&quot;, &quot;16241940&quot;
+$ citation    &lt;chr&gt; &quot;Smythe MA, Stephens JL, Koerber JM, Mattson JC: A comparison of lepirudin and argatrob...
+$ parent_key  &lt;chr&gt; &quot;DB00001&quot;, &quot;DB00001&quot;, &quot;DB00001&quot;</code></pre>
+<p>In the above examples, we see that the IDs (i.e. <code>parent_key</code>s) attached to each of the items is that of the corresponding drug, <code>DB00001</code>. This is the case because the dummy XML file used in this tutorial has only a single drug. When extracting the data from the full DrugBank XML database, other drug IDs would appear.</p>
+<p>Furthermore, the <code>drugbank-id</code> is the default value used to fill the <code>parent_key</code> in the returned result. Below, we show an example where we specify another field to use for filling the <code>parent_key</code> column.</p>
+<p style="color:red;">
+Problem: the code below does not work.
+</p>
+<pre class="r"><code># get actions inside carriers nodes, the id here is carrier node
+targets &lt;- map_df(all_drugs, ~drug_sub_df(.x, &quot;actions&quot;, id = &quot;id&quot;))</code></pre>
+<pre><code>???</code></pre>
+<p style="color:red;">
+After you get the code above to work, fill the ??? above as per the preceding examples. Also add below the XML snippet that it is intended to parse (again, like the XML snippets added for the previous ‘groups’ and ‘products’ examples).
+</p>
 <hr />
-</div>
 </div>
 </div>
 <div id="special-cases-all-for-one" class="section level2">
@@ -490,10 +585,10 @@ targets_actions &lt;- drug_sub_df(.x, &quot;actions&quot;, id = &quot;id&quot;)<
 <p style="color:red;">
 Problem: the drug in the <code>drugbank_record.xml</code> file does not have reactions in it. Either mention that or change the example record in <code>drugbank_record.xml</code> (which require modifying the XML snippets above to match the content of the new drug).
 </p>
-<div id="htmlwidget-eab0d34a77c57af287ef" style="width:1152px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eab0d34a77c57af287ef">{"x":{"diagram":"digraph {\n\n\n\n\n  \"1\" [label = \"<reactions>\", style = \"\", shape = \"\", fontname = \"\", tooltip = \"\", fontcolor = \"\", penwidth = \"\", fillcolor = \"\"] \n  \"2\" [label = \"<reaction>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <reaction>*\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"3\" [label = \"<sequence>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"4\" [label = \"<left-element>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"5\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"6\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"<right-element>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"<enzymes>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <enzymes>\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"11\" [label = \"<enzyme>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"12\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"13\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"14\" [label = \"<uniprot-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"4\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"4\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"7\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"7\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"10\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a03f71dc6fab2de0e1ce" style="width:1152px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a03f71dc6fab2de0e1ce">{"x":{"diagram":"digraph {\n\n\n\n\n  \"1\" [label = \"<reactions>\", style = \"\", shape = \"\", fontname = \"\", tooltip = \"\", fontcolor = \"\", penwidth = \"\", fillcolor = \"\"] \n  \"2\" [label = \"<reaction>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <reaction>*\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"3\" [label = \"<sequence>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"4\" [label = \"<left-element>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"5\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"6\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"<right-element>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"<enzymes>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <enzymes>\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"11\" [label = \"<enzyme>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"12\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"13\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"14\" [label = \"<uniprot-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"4\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"4\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"7\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"7\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"10\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p style="color:red;">
-For some reason, the parent of <code>&lt;reaction&gt;</code> (i.e. <code>&lt;reactions&gt;</code>) refuses to appear at the top of the tree?
+The <code>&lt;reactions&gt;</code> node looks ugly. Fix its appearance if possible.
 </p>
 <p>that represents the following XML</p>
 <pre class="r"><code>&lt;reactions&gt;
