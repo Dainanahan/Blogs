@@ -233,7 +233,7 @@ though, we need to load the data first.
 library(XML)
 drugbank <- xmlParse('drugbank_database.xml')
 drugbank_root <- xmlRoot(drugbank_db)
-all_drugs <- <- xmlChildren(drugbank_root)
+all_drugs <- xmlChildren(drugbank_root)
 ```
 
 
@@ -251,13 +251,6 @@ Now that XML file has been loaded, let's extract the drugs' data. The
 ## that is based on its first parameter
 drugs <- map_df(drugbank$children, ~drug_df(.x))
 ```
-
-<p style="color:red;">
-`drugs <- map_df(drugbank$children, drug_df)`
-</p>
-<p style="color:red;">
-Wouldn't this line work? If yes, use instead of the one above?
-</p>
 
 -----
 
