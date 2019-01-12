@@ -455,23 +455,18 @@ As already implied earlier, this field is used to determine the `parent_key`
 field (by default, `drugbank-id`) to attach to the extracted data. As an 
 example, we parse ???.
 
-<p style="color:red;">
-Add an example here, and actually run it (i.e. `eval=TRUE`) on the XML file 
-provided by us earlier (`drugbank_record.xml`), and then display the first few 
-records of the result (using the `head()` function). It is okay if you feel 
-like using two examples, not just one.
-</p>
 
 ```{r third_param, eval=FALSE, highlight=TRUE}
-# # get actions inside carriers nodes,
-# # the id here is carrier node
-# carriers_actions <- drug_sub_df(.x, "actions", id = "id")
+# get actions inside carriers nodes,
+# the id here is carrier node
+targets_actions <- drug_sub_df(.x, "actions", id = "id")
 ```
 
-<p style="color:red;">
-After displaying of the records, emphasize that for each record, the 
-corresponding ID is attached.
-</p>
+```{r parse_carriers, echo=FALSE}
+library(dbparser)
+get_xml_db_rows("data/drugbank_record.xml")
+head(parse_drug_targets_actions())
+```
 
 -----
 
