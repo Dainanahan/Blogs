@@ -69,6 +69,7 @@ the information of the many drugs that constitute the *DrugBank* database.
 To follow along with the code in this tutorial, you may download and use this 
 [XML file](drugbank_record.xml). It is a dummy XML file that contains only a 
 single drug record (i.e. a single `<drug>` node).
+
 -----
 
 ## The `<drug>` node (and its children)
@@ -228,19 +229,13 @@ the `<drug>` records. The extracted information will be returned in a data
 frame (tibble) object containing all the drugs data. Before extracting the data 
 though, we need to load the data first.
 
-<p style="color:red;">
-Finalize code below.
-</p>
-
 ```{r load_drugbank_xml, eval=FALSE}
-## <drugbank> parent node
-drugbank <- ???('drugbank_database.xml')
+library(XML)
+drugbank <- xmlParse('drugbank_database.xml')
+drugbank_root <- xmlRoot(drugbank_db)
+all_drugs <- <- xmlChildren(drugbank_root)
 ```
 
-<p style="color:red;">
-Suggestion: consider adding this line of code: `all_drugs <- drugbank$children` 
-then use `all_drugs` afterwards
-</p>
 
 Now that XML file has been loaded, let's extract the drugs' data. The 
 `map_df()` function takes two parameters:
