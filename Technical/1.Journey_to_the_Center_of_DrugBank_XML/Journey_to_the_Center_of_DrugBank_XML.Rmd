@@ -539,14 +539,7 @@ them.
 
 ### Reaction (Left, right, enzymes, what??)
 The `<reactions>` node is a little complex child that contain many different 
-nodes and nodes container as follows:
-
-<p style="color:red;">
-Problem: the drug in the `drugbank_record.xml` file does not have reactions in 
-it. Either mention that or change the example record in `drugbank_record.xml` 
-(which require modifying the XML snippets above to match the content of the 
-new drug).
-</p>
+nodes and nodes container as follows (we do not have the below reactions in the attached record example):
 
 ```{r drug_reactions, echo=FALSE,  fig.width=12}
 reactions <- Node$new("<reactions>")
@@ -570,19 +563,15 @@ enzyme$AddChild("<name>")
 enzyme$AddChild("<uniprot-id>")
 
 # plotting
-SetGraphStyle(reaction, rankdir = "TB")
-SetEdgeStyle(reaction, arrowhead = "vee", color = "grey35", penwidth = 2)
-SetNodeStyle(reaction, style = "filled,rounded",
+SetGraphStyle(reactions, rankdir = "TB")
+SetEdgeStyle(reactions, arrowhead = "vee", color = "grey35", penwidth = 2)
+SetNodeStyle(reactions, style = "filled,rounded",
              shape = "box", fillcolor = "GreenYellow",
             fontname = "helvetica", tooltip = GetDefaultTooltip, fontcolor = "Firebrick")
 SetNodeStyle(reaction$`<enzymes>`, fillcolor = "LightBlue", penwidth = "5px",
              tooltip = GetDefaultTooltip)
 plot(reactions)
 ```
-
-<p style="color:red;">
-The `<reactions>` node looks ugly. Fix its appearance if possible.
-</p>
 
 that represents the following XML
 
