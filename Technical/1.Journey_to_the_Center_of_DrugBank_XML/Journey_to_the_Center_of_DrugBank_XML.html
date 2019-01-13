@@ -102,9 +102,6 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
-summary {
-  display: list-item;
-}
 </style>
 
 
@@ -112,74 +109,14 @@ summary {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
 </script>
 
 <!-- code folding -->
+
 
 
 
@@ -304,8 +241,8 @@ $(document).ready(function () {
 <li>The <code>&lt;drug&gt;</code> node above includes many other children that, for the moment, have been left out for the sake of simplicity. As we will see, some of those other children are much more complex than the ones shown above. We will find that these children vary greatly in structure; some of them simply contain a single value while others may contain multiple children nodes or sometimes even deeper hierarchies of children nodes within them. All these children nodes may have their own attributes as well (not just the drug node).</li>
 </ul>
 <p>Right now, our current conceptual understanding of the structure of a <code>&lt;drug&gt;</code> node looks something like the figure below.</p>
-<div id="htmlwidget-cfbf98783ac545ad0685" style="width:1152px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cfbf98783ac545ad0685">{"x":{"diagram":"digraph {\n\ngraph [rankdir = \"TB\"]\n\n\n\n  \"1\" [label = \"<drug>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <drug>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"2\" [label = \"Attributes\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Attributes\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"3\" [label = \"type\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: type\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"4\" [label = \"created\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: created\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"5\" [label = \"updated\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: updated\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"6\" [label = \"Children\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Children\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"<drugbank-id>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <drugbank-id>*\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <name>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"<description>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <description>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"<cas-number>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <cas-number>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"11\" [label = \"<unii>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <unii>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"12\" [label = \"<state>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <state>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"13\" [label = \"<groups>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <groups>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"14\" [label = \"<group>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <group>*\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"15\" [label = \"Many others ...\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Many others ...\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"1\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"15\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"13\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e83f4b70cd869d3f0d20" style="width:1152px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e83f4b70cd869d3f0d20">{"x":{"diagram":"digraph {\n\ngraph [rankdir = \"TB\"]\n\n\n\n  \"1\" [label = \"<drug>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <drug>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"2\" [label = \"Attributes\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Attributes\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"3\" [label = \"type\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: type\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"4\" [label = \"created\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: created\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"5\" [label = \"updated\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: updated\", fixedsize = \"FALSE\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"6\" [label = \"Children\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Children\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"<drugbank-id>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <drugbank-id>*\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <name>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"<description>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <description>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"<cas-number>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <cas-number>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"11\" [label = \"<unii>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <unii>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"12\" [label = \"<state>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <state>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"13\" [label = \"<groups>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <groups>\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"14\" [label = \"<group>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: <group>*\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"15\" [label = \"Many others ...\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", fontcolor = \"Firebrick\", tooltip = \"- name: Many others ...\", fixedsize = \"FALSE\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"1\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"6\"->\"15\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"13\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <hr />
 </div>
 <div id="the-drug-node-parser" class="section level2">
@@ -564,15 +501,13 @@ $ citation    &lt;chr&gt; &quot;Smythe MA, Stephens JL, Koerber JM, Mattson JC: 
 $ parent_key  &lt;chr&gt; &quot;DB00001&quot;, &quot;DB00001&quot;, &quot;DB00001&quot;</code></pre>
 <p>In the above examples, we see that the IDs (i.e. <code>parent_key</code>s) attached to each of the items is that of the corresponding drug, <code>DB00001</code>. This is the case because the dummy XML file used in this tutorial has only a single drug. When extracting the data from the full DrugBank XML database, other drug IDs would appear.</p>
 <p>Furthermore, the <code>drugbank-id</code> is the default value used to fill the <code>parent_key</code> in the returned result. Below, we show an example where we specify another field to use for filling the <code>parent_key</code> column.</p>
-<p style="color:red;">
-Problem: the code below does not work.
-</p>
 <pre class="r"><code># get actions inside carriers nodes, the id here is carrier node
 targets &lt;- map_df(all_drugs, ~drug_sub_df(.x, &quot;actions&quot;, id = &quot;id&quot;))</code></pre>
-<pre><code>???</code></pre>
-<p style="color:red;">
-After you get the code above to work, fill the ??? above as per the preceding examples. Also add below the XML snippet that it is intended to parse (again, like the XML snippets added for the previous ‘groups’ and ‘products’ examples).
-</p>
+<pre class="r"><code>glimpse(target_actions)</code></pre>
+<pre><code>Observations: 1
+Variables: 2
+$ text       &lt;chr&gt; &quot;inhibitor&quot;
+$ parent_key &lt;chr&gt; &quot;BE0000048&quot;</code></pre>
 <hr />
 </div>
 </div>
@@ -581,15 +516,9 @@ After you get the code above to work, fill the ??? above as per the preceding ex
 <p>There are a number of nodes that require <em>special</em> parsing in the <em>DrugBank</em> database. in the remainder of the article, we are going to explore some of them.</p>
 <div id="reaction-left-right-enzymes-what" class="section level3">
 <h3>Reaction (Left, right, enzymes, what??)</h3>
-<p>The <code>&lt;reactions&gt;</code> node is a little complex child that contain many different nodes and nodes container as follows:</p>
-<p style="color:red;">
-Problem: the drug in the <code>drugbank_record.xml</code> file does not have reactions in it. Either mention that or change the example record in <code>drugbank_record.xml</code> (which require modifying the XML snippets above to match the content of the new drug).
-</p>
-<div id="htmlwidget-a03f71dc6fab2de0e1ce" style="width:1152px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a03f71dc6fab2de0e1ce">{"x":{"diagram":"digraph {\n\n\n\n\n  \"1\" [label = \"<reactions>\", style = \"\", shape = \"\", fontname = \"\", tooltip = \"\", fontcolor = \"\", penwidth = \"\", fillcolor = \"\"] \n  \"2\" [label = \"<reaction>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <reaction>*\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"3\" [label = \"<sequence>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"4\" [label = \"<left-element>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"5\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"6\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"<right-element>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"<enzymes>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <enzymes>\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"11\" [label = \"<enzyme>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"12\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"13\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"14\" [label = \"<uniprot-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"4\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"4\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"7\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"7\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"10\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-<p style="color:red;">
-The <code>&lt;reactions&gt;</code> node looks ugly. Fix its appearance if possible.
-</p>
+<p>The <code>&lt;reactions&gt;</code> node is a little complex child that contain many different nodes and nodes container as follows (we do not have the below reactions in the attached record example):</p>
+<div id="htmlwidget-889ff5da483fd7bcec03" style="width:1152px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-889ff5da483fd7bcec03">{"x":{"diagram":"digraph {\n\ngraph [rankdir = \"TB\"]\n\n\n\n  \"1\" [label = \"<reactions>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <reactions>\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"2\" [label = \"<reaction>*\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <reaction>*\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"3\" [label = \"<sequence>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <sequence>\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"4\" [label = \"<left-element>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <left-element>\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"5\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <drugbank-id>\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"6\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <name>\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"7\" [label = \"<right-element>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <right-element>\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"8\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <drugbank-id>\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"9\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <name>\", fontcolor = \"Firebrick\", penwidth = \"\", fillcolor = \"GreenYellow\"] \n  \"10\" [label = \"<enzymes>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <enzymes>\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"11\" [label = \"<enzyme>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <enzyme>\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"12\" [label = \"<drugbank-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <drugbank-id>\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"13\" [label = \"<name>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <name>\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n  \"14\" [label = \"<uniprot-id>\", style = \"filled,rounded\", shape = \"box\", fontname = \"helvetica\", tooltip = \"- name: <uniprot-id>\", fontcolor = \"Firebrick\", penwidth = \"5px\", fillcolor = \"LightBlue\"] \n\"1\"->\"2\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"3\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"4\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"7\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"2\"->\"10\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"4\"->\"5\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"4\"->\"6\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"7\"->\"8\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"7\"->\"9\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"10\"->\"11\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"12\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"13\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n\"11\"->\"14\" [arrowhead = \"vee\", color = \"grey35\", penwidth = \"2\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>that represents the following XML</p>
 <pre class="r"><code>&lt;reactions&gt;
     &lt;reaction&gt;
@@ -615,12 +544,6 @@ The <code>&lt;reactions&gt;</code> node looks ugly. Fix its appearance if possib
 <ul>
 <li>Enzymes are parsed a little as usual:</li>
 </ul>
-<p style="color:red;">
-Make sure all code is runnable by the reader.
-</p>
-<p style="color:red;">
-Formatting: why are you using a bullet point here?
-</p>
 <pre class="r"><code>reactions_enzymes &lt;- drug_sub_df(.x, &quot;enzymes&quot;, id = NULL)</code></pre>
 <ul>
 <li>The rest of the nodes which are parsed as follows.</li>

@@ -602,13 +602,6 @@ that parsed in two stages:
 
 * Enzymes are parsed a little as usual:
 
-<p style="color:red;">
-Make sure all code is runnable by the reader.
-</p>
-<p style="color:red;">
-Formatting: why are you using a bullet point here?
-</p>
-
 ```{r reactions_enzymes, eval=FALSE, highlight=TRUE}
 reactions_enzymes <- drug_sub_df(.x, "enzymes", id = NULL)
 ```
