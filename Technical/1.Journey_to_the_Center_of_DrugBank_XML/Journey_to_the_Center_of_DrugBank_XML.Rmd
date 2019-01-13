@@ -514,28 +514,21 @@ Furthermore, the `drugbank-id` is the default value used to fill the
 `parent_key` in the returned result. Below, we show an example where we specify 
 another field to use for filling the `parent_key` column.
 
-<p style="color:red;">
-Problem: the code below does not work.
-</p>
-
 ```{r third_param, eval=FALSE, highlight=TRUE}
 # get actions inside carriers nodes, the id here is carrier node
 targets <- map_df(all_drugs, ~drug_sub_df(.x, "actions", id = "id"))
 ```
 
-```{r parse_carriers, eval=FALSE, echo=FALSE}
+```{r parse_carriers, eval=FALSE}
 glimpse(target_actions)
 ```
-```
-???
-```
 
-<p style="color:red;">
-After you get the code above to work, fill the ??? above as per the preceding 
-examples. Also add below the XML snippet that it is intended to parse (again, 
-like the XML snippets added for the previous 'groups' and 'products' examples).
-</p>
-
+```
+Observations: 1
+Variables: 2
+$ text       <chr> "inhibitor"
+$ parent_key <chr> "BE0000048"
+```
 -----
 
 ## Special Cases (All for one)
