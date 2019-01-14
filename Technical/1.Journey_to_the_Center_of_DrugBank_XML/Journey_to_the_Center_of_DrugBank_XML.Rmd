@@ -1,6 +1,6 @@
 ---
 title: "Journey to the Center of the DrugBank XML Database"
-author: "Mohammed Ali, Ali Ezzat"
+author: "[Mohammed Ali](https://www.linkedin.com/in/mohammedali85/), [Ali Ezzat](https://www.linkedin.com/in/aliezzat1985/)"
 date: "December 31, 2018"
 output: 
   html_document:
@@ -15,8 +15,8 @@ library(data.tree)
 
 
 ## Objective
-In this tutorial, we shall take a journey together to explore the **structure** of 
-the *DrugBank* database. We will observe how the drugs information is 
+In this tutorial, we shall take a journey together to explore the **structure** 
+of the *DrugBank* database. We will observe how the drugs information is 
 structured within DrugBank's XML database and see how this information can be 
 retrieved using **R**. Our main purpose here is parsing the database from its 
 containing XML file. Let us begin!
@@ -321,6 +321,7 @@ To give a couple of examples, let's say we want to parse the `<groups>` and
 the information we want.
 
 ```{r drug_sub_df_1, eval=FALSE}
+## get drugs' groups and products info
 drug_groups <- map_df(all_drugs, ~drug_sub_df(.x, "groups"))
 drug_products <- map_df(all_drugs, ~drug_sub_df(.x, "products"))
 ```
@@ -398,7 +399,7 @@ The `sub_child_node` parameter is used when we access a node using two names.
 Below is an example.
 
 ```{r sec_param, eval=FALSE, highlight=TRUE}
-# Here we need the drug articles only inside the drug references
+## get just the articles from the drugs' general references
 drug_articles <- map_df(all_drugs, ~drug_sub_df(.x, "general-references", sub_child_node = "articles"))
 ```
 
@@ -406,50 +407,62 @@ The above code parses the following XML snippet. Note that there are other
 nodes beneath `<general-references>` that would not be considered by the above
 code (i.e. `<textbooks>` and `<links>`).
 
-```{r sec_param_xml, eval=FALSE, highlight=TRUE}
-<general-references>
-    <articles>
-        <article>
-            <pubmed-id>16244762</pubmed-id>
-            <citation>
-                Smythe MA, Stephens JL, Koerber JM, Mattson JC: 
-                A comparison of lepirudin and argatroban outcomes. 
-                Clin Appl Thromb Hemost. 2005 Oct;11(4):371-4.
-            </citation>
-        </article>
-        <article>
-            <pubmed-id>16690967</pubmed-id>
-            <citation>
-                Tardy B, Lecompte T, Boelhen F, Tardy-Poncet B, Elalamy I, 
-                Morange P, Gruel Y, Wolf M, Francois D, Racadot E, Camarasa P, 
-                Blouch MT, Nguyen F, Doubine S, Dutrillaux F, Alhenc-Gelas M, 
-                Martin-Toutain I, Bauters A, Ffrench P, de Maistre E, 
-                Grunebaum L, Mouton C, Huisse MG, Gouault-Heilmann M, Lucke V: 
-                Predictive factors for thrombosis and major bleeding in an 
-                observational study in 181 patients with heparin-induced 
-                thrombocytopenia treated with lepirudin. 
-                Blood. 2006 Sep 1;108(5):1492-6. Epub 2006 May 11.
-            </citation>
-        </article>
-        <article>
-            <pubmed-id>16241940</pubmed-id>
-            <citation>
-                Lubenow N, Eichler P, Lietz T, Greinacher A: 
-                Lepirudin in patients with heparin-induced thrombocytopenia - 
-                results of the third prospective study (HAT-3) and a combined 
-                analysis of HAT-1, HAT-2, and HAT-3. 
-                J Thromb Haemost. 2005 Nov;3(11):2428-36.
-            </citation>
-        </article>
-    </articles>
-    <textbooks/>
-    <links>
-      <link>
-        <title>Google books</title>
-        <url>http://books.google.com/books?id=iadLoXoQkWEC&amp;pg=PA440</url>
-      </link>
-    </links>
-</general-references>
+```{sec_param_xml, eval=FALSE, highlight=TRUE}
+<drug type="biotech" created="2005-06-13" updated="2018-07-02">
+        
+        .
+        .
+        .
+        
+    <general-references>
+        <articles>
+            <article>
+                <pubmed-id>16244762</pubmed-id>
+                <citation>
+                    Smythe MA, Stephens JL, Koerber JM, Mattson JC: 
+                    A comparison of lepirudin and argatroban outcomes. 
+                    Clin Appl Thromb Hemost. 2005 Oct;11(4):371-4.
+                </citation>
+            </article>
+            <article>
+                <pubmed-id>16690967</pubmed-id>
+                <citation>
+                    Tardy B, Lecompte T, Boelhen F, Tardy-Poncet B, Elalamy I, 
+                    Morange P, Gruel Y, Wolf M, Francois D, Racadot E, Camarasa P, 
+                    Blouch MT, Nguyen F, Doubine S, Dutrillaux F, Alhenc-Gelas M, 
+                    Martin-Toutain I, Bauters A, Ffrench P, de Maistre E, 
+                    Grunebaum L, Mouton C, Huisse MG, Gouault-Heilmann M, Lucke V: 
+                    Predictive factors for thrombosis and major bleeding in an 
+                    observational study in 181 patients with heparin-induced 
+                    thrombocytopenia treated with lepirudin. 
+                    Blood. 2006 Sep 1;108(5):1492-6. Epub 2006 May 11.
+                </citation>
+            </article>
+            <article>
+                <pubmed-id>16241940</pubmed-id>
+                <citation>
+                    Lubenow N, Eichler P, Lietz T, Greinacher A: 
+                    Lepirudin in patients with heparin-induced thrombocytopenia - 
+                    results of the third prospective study (HAT-3) and a combined 
+                    analysis of HAT-1, HAT-2, and HAT-3. 
+                    J Thromb Haemost. 2005 Nov;3(11):2428-36.
+                </citation>
+            </article>
+        </articles>
+        <textbooks/>
+        <links>
+          <link>
+            <title>Google books</title>
+            <url>http://books.google.com/books?id=iadLoXoQkWEC&amp;pg=PA440</url>
+          </link>
+        </links>
+    </general-references>
+        
+        .
+        .
+        .
+      
+</drug>
 ```
 
 As for the `id`, it is used to specify the `parent_key` field (by default, 
@@ -504,7 +517,7 @@ $ citation    <chr> "Smythe MA, Stephens JL, Koerber JM, Mattson JC: A compariso
 $ parent_key  <chr> "DB00001", "DB00001", "DB00001"
 ```
 
-In the above examples, we see that the IDs (i.e. `parent_key`s) attached to 
+In the above examples, we see that the IDs (i.e. `parent_key`'s) attached to 
 each of the items is that of the corresponding drug, `DB00001`. This is the 
 case because the dummy XML file used in this tutorial has only a single drug. 
 When extracting the data from the full DrugBank XML database, other drug IDs 
@@ -514,38 +527,49 @@ Furthermore, the `drugbank-id` is the default value used to fill the
 `parent_key` in the returned result. Below, we show an example where we specify 
 another field to use for filling the `parent_key` column.
 
-```{r third_param, eval=FALSE, highlight=TRUE}
-# get actions inside carriers nodes, the id here is carrier node
-targets <- map_df(all_drugs, ~drug_sub_df(.x, "actions", id = "id"))
+```{r id_param, eval=FALSE, highlight=TRUE}
+## get the synonyms and experimental properties (with modified attached IDs)
+drug_synonyms <- map_df(all_drugs, ~drug_sub_df(.x, "synonyms", id = "name"))
+drug_exp_props <- map_df(all_drugs, ~drug_sub_df(.x, "experimental-properties", id = "cas-number"))
 ```
 
-```{r parse_carriers, eval=FALSE}
-glimpse(target_actions)
+```{r display_synonyms, eval=FALSE}
+drug_synonyms
+```
+```
+  text                  parent_key
+1 Hirudin variant-1     Lepirudin
+2 Lepirudin recombinant Lepirudin
 ```
 
+```{r display_experimental_properties, eval=FALSE}
+drug_exp_props
 ```
-Observations: 1
-Variables: 2
-$ text       <chr> "inhibitor"
-$ parent_key <chr> "BE0000048"
+```
+  kind              value             source                                                   parent_key
+1 Melting Point     65 °C             Otto, A. & Seckler, R. Eur. J. Biochem. 202:67-73 (1991) 138068-37-8
+2 Hydrophobicity    -0.777                                                                     138068-37-8
+3 Isoelectric Point 4.04                                                                       138068-37-8
+4 Molecular Weight  6963.425                                                                   138068-37-8
+5 Molecular Formula C287H440N80O110S6                                                          138068-37-8
 ```
 -----
 
 ## Special Cases (All for one)
 There are a number of nodes that require *special* parsing in the *DrugBank* 
-database. in the remainder of the article, we are going to explore some of 
+database. In the remainder of the article, we are going to explore some of 
 them.
 
 
 ### Reaction (Left, right, enzymes, what??)
-The `<reactions>` node is a little complex child that contain many different 
-nodes and nodes container as follows (we do not have the below reactions in the attached record example):
+The `<reactions>` node is a relatively complex child that contain a variety of 
+children and sub-children nodes. The following figure shows the structure of a 
+`<reactions>` node.
 
 ```{r drug_reactions, echo=FALSE,  fig.width=12}
 reactions <- Node$new("<reactions>")
-reaction <- reactions$AddChild("<reaction>*")
 
-# reaction <- Node$new("<reaction>")
+reaction <- reactions$AddChild("<reaction>*")
 reaction$AddChild("<sequence>")
 
 left_element <- reaction$AddChild("<left-element>")
@@ -557,7 +581,8 @@ right_element$AddChild("<drugbank-id>")
 right_element$AddChild("<name>")
 
 enzymes <- reaction$AddChild("<enzymes>")
-enzyme <- enzymes$AddChild("<enzyme>")
+
+enzyme <- enzymes$AddChild("<enzyme>*")
 enzyme$AddChild("<drugbank-id>")
 enzyme$AddChild("<name>")
 enzyme$AddChild("<uniprot-id>")
@@ -565,114 +590,219 @@ enzyme$AddChild("<uniprot-id>")
 # plotting
 SetGraphStyle(reactions, rankdir = "TB")
 SetEdgeStyle(reactions, arrowhead = "vee", color = "grey35", penwidth = 2)
-SetNodeStyle(reactions, style = "filled,rounded",
-             shape = "box", fillcolor = "GreenYellow",
-            fontname = "helvetica", tooltip = GetDefaultTooltip, fontcolor = "Firebrick")
+SetNodeStyle(reactions, style = "filled,rounded", shape = "box", 
+             fillcolor = "GreenYellow", fontname = "helvetica", 
+             tooltip = GetDefaultTooltip, fontcolor = "Firebrick")
 SetNodeStyle(reaction$`<enzymes>`, fillcolor = "LightBlue", penwidth = "5px",
              tooltip = GetDefaultTooltip)
 plot(reactions)
 ```
 
-that represents the following XML
+An example of the corresponding XML is given below. Note that the XML file 
+provided at the beginning of the tutorial does not contain the example below.
 
-```{r reaction_xml, eval=FALSE, highlight=TRUE}
-<reactions>
-    <reaction>
-        <sequence>1</sequence>
-        <left-element>
-            <drugbank-id>DB00091</drugbank-id>
-            <name>Cyclosporine</name>
-        </left-element>
-        <right-element>
-            <drugbank-id>DBMET00359</drugbank-id>
-            <name>Metabolite AM1</name>
-        </right-element>
-        <enzymes>
-            <enzyme>
-                <drugbank-id>BE0002638</drugbank-id>
-                <name>Cytochrome P450 3A4</name>
-                <uniprot-id>P08684</uniprot-id>
-            </enzyme>
-        </enzymes>
-    </reaction>
-</reactions>
+```{reactions_xml, eval=FALSE, highlight=TRUE}
+<drug type="..." created="..." updated="...">
+        
+        .
+        .
+        .
+        
+    <reactions>
+        <reaction>
+            <sequence>1</sequence>
+            <left-element>
+                <drugbank-id>DB00091</drugbank-id>
+                <name>Cyclosporine</name>
+            </left-element>
+            <right-element>
+                <drugbank-id>DBMET00359</drugbank-id>
+                <name>Metabolite AM1</name>
+            </right-element>
+            <enzymes>
+                <enzyme>
+                    <drugbank-id>BE0002638</drugbank-id>
+                    <name>Cytochrome P450 3A4</name>
+                    <uniprot-id>P08684</uniprot-id>
+                </enzyme>
+            </enzymes>
+        </reaction>
+    </reactions>
+        
+        .
+        .
+        .
+      
+</drug>
 ```
 
-that parsed in two stages:
+To parse the above XML, we write the functions below.
 
-* Enzymes are parsed a little as usual:
+```{r parse_reactions_node, eval=FALSE, highlight=TRUE}
+## parse <enzymes> child
+get_enzymes_df <- function(drug) {
+    return(map_df(xmlChildren(drug[["reactions"]]),
+                  ~drug_sub_df(.x, "enzymes", id = NULL)))
+    # reactions_enzymes <- drug_sub_df(.x, "enzymes", id = NULL)
+}
 
-```{r reactions_enzymes, eval=FALSE, highlight=TRUE}
-reactions_enzymes <- drug_sub_df(.x, "enzymes", id = NULL)
-```
-
-* The rest of the nodes which are parsed as follows.
-
-```{r reactions_rest_nodes, eval=FALSE, highlight=TRUE}
+## parse rest of children
 get_reactions_rec <- function(r, drug_key) {
     tibble(
-        sequence = xmlValue(r[["sequence"]]),
-        left_drugbank_id = xmlValue(r[["left-element"]][["drugbank-id"]]),
-        left_drugbank_name = xmlValue(r[["left-element"]][["name"]]),
-        right_drugbank_id = xmlValue(r[["right-element"]][["drugbank-id"]]),
+        sequence            = xmlValue(r[["sequence"]]),
+        
+        left_drugbank_id    = xmlValue(r[["left-element"]][["drugbank-id"]]),
+        left_drugbank_name  = xmlValue(r[["left-element"]][["name"]]),
+        
+        right_drugbank_id   = xmlValue(r[["right-element"]][["drugbank-id"]]),
         right_drugbank_name = xmlValue(r[["right-element"]][["name"]]),
+        
         parent_key = drug_key
     )
 }
 
-get_reactions_df <- function(rec) {
-    return(map_df(xmlChildren(rec[["reactions"]]),
-                  ~ get_reactions_rec(., xmlValue(rec["drugbank-id"][[1]]))))
+get_reactions_df <- function(drug) {
+    return(map_df(xmlChildren(drug[["reactions"]]),
+                  ~ get_reactions_rec(., xmlValue(drug["drugbank-id"][[1]]))))
 }
 ```
 
+Below is a demonstration of how to use the above functions. First, we will show 
+how to apply the functions for a single drug, and then provide the code for 
+automating this operation for all drugs.
+
+```{r parse_reactions_node_demo1, eval=FALSE, highlight=TRUE}
+## extract reactions info from a single drug (the first one)
+first_drug_reactions_enzymes <- get_enzymes_df(all_drugs[[1]])
+first_drug_reactions_remaining <- get_reactions_df(all_drugs[[1]])
+```
+
+```{r parse_reactions_node_demo2, eval=FALSE, highlight=TRUE}
+## extract reactions info from all drugs
+drug_reactions_enzymes <- map_df(all_drugs, ~get_enzymes_df(.x))
+drug_reactions_remaining <- map_df(all_drugs, ~get_reactions_df(.x))
+```
+
+Let's see the returned data.
+
+```{r display_reactions_enzymes, eval=FALSE}
+drug_reactions_enzymes
+```
+```
+  drugbank-id name                uniprot-id
+1 BE0002638   Cytochrome P450 3A4 P08684
+```
+```{r display_reactions_remaining, eval=FALSE}
+drug_reactions_remaining
+```
+```
+  sequence left_drugbank_id left_drugbank_name right_drugbank_id right_drugbank_name parent_key
+1 1        DB00091          Cyclosporine       DBMET00359        Metabolite AM1      DB00001  
+```
 
 
 ### ATC (twins, twins, ..)
-ATC has repeated node that differe in values.
+`<atc-codes>` is another child of the `<drug>` node that also requires special 
+attention. Observe the following XML snippet that shows thse structure of the 
+`<atc-codes>` node.
 
-```{r atc_code, eval=FALSE, highlight=TRUE}
-<atc-codes>
-    <atc-code code="B01AE02">
-        <level code="B01AE">Direct thrombin inhibitors</level>
-        <level code="B01A">ANTITHROMBOTIC AGENTS</level>
-        <level code="B01">ANTITHROMBOTIC AGENTS</level>
-        <level code="B">BLOOD AND BLOOD FORMING ORGANS</level>
-    </atc-code>
-</atc-codes>
+```{atc_code_xml, eval=FALSE, highlight=TRUE}
+<drug type="..." created="..." updated="...">
+        
+        .
+        .
+        .
+        
+    <atc-codes>
+        <atc-code code="B01AE02">
+            <level code="B01AE">Direct thrombin inhibitors</level>
+            <level code="B01A">ANTITHROMBOTIC AGENTS</level>
+            <level code="B01">ANTITHROMBOTIC AGENTS</level>
+            <level code="B">BLOOD AND BLOOD FORMING ORGANS</level>
+        </atc-code>
+    </atc-codes>
+        
+        .
+        .
+        .
+      
+</drug>
 ```
 
 we can parse it as follows.
 
-```{r atrc_parser, eval=FALSE, highlight=TRUE}
+```{r atc_parser, eval=FALSE, highlight=TRUE}
 get_atc_codes_rec <- function(r, drug_key) {
     tibble(
         atc_code = xmlGetAttr(r, name = "code"),
+        
         level_1 = xmlValue(r[[1]]),
         code_1 = xmlGetAttr(r[[1]], name = "code"),
+        
         level_2 = xmlValue(r[[2]]),
         code_2 = xmlGetAttr(r[[2]], name = "code"),
+        
         level_3 = xmlValue(r[[3]]),
         code_3 = xmlGetAttr(r[[3]], name = "code"),
+        
         level_4 = xmlValue(r[[4]]),
         code_4 = xmlGetAttr(r[[4]], name = "code"),
+        
         parent_key = drug_key
     )
 }
 
-get_atc_codes_df <- function(rec) {
-    return (map_df(xmlChildren(rec[["atc-codes"]]),
-                   ~ get_atc_codes_rec(.x, xmlValue(rec["drugbank-id"][[1]]))))
+get_atc_codes_df <- function(drug) {
+    return (map_df(xmlChildren(drug[["atc-codes"]]),
+                   ~ get_atc_codes_rec(.x, xmlValue(drug["drugbank-id"][[1]]))))
 }
 ```
 
-and this concludes our journey in drug bank database, for more you can visit [dbparser](https://github.com/Dainanahan/dbparser)
+```{r parse_atc_codes, eval=FALSE, highlight=TRUE}
+## extract ATC codes info from all drugs
+drug_atc_codes <- map_df(all_drugs, ~get_atc_codes_df(.x))
+```
 
-I hope that you have enjoyed our journey together.
+Let's have a look at the returned results.
+
+```{r display_atc_codes, eval=FALSE}
+glimpse(drug_atc_codes)
+```
+```
+Observations: 1
+Variables: 10
+$ atc_code   <chr> "B01AE02"
+$ level_1    <chr> "Direct thrombin inhibitors"
+$ code_1     <chr> "B01AE"
+$ level_2    <chr> "ANTITHROMBOTIC AGENTS"
+$ code_2     <chr> "B01A"
+$ level_3    <chr> "ANTITHROMBOTIC AGENTS"
+$ code_3     <chr> "B01"
+$ level_4    <chr> "BLOOD AND BLOOD FORMING ORGANS"
+$ code_4     <chr> "B"
+$ parent_key <chr> "DB00001"
+```
+
+We have covered a couple of examples of *special* nodes that require separate 
+treatment for parsing them. While there are more instances of such nodes, we 
+will stop here with these special nodes.
+
+-----
+
+## Conclusion
+Our journey within the *DrugBank* XML database comes to an end here. Do check 
+out our [dbparser](https://github.com/Dainanahan/dbparser) package that was 
+built for parsing all the data within *DrugBank*.
+
+We hope that you enjoyed our journey together.
+
+-----
 
 ## About the Authors
-We are so and so, co-founded a company Dainanahan whose purpose is to provide
-practitioners in the field of drug discovery with useful tools that would make 
-their life easier and help increase their productivity. The suite of useful 
-tools is called DrugVerse by the way, and dbparser is just the beginning.
+We are a team of data scientists called *[Dainanahan](https://github.com/Dainanahan)*. 
+Our aim is to provide practitioners in the field of drug discovery with 
+useful tools that would make their life easier and help increase their 
+productivity. This suite of tools that we are planning to make is codenamed 
+*[DrugVerse](https://www.researchgate.net/project/DrugVerse-A-Suite-of-Tools-for-Use-in-Drug-Discovery)*, 
+and *dbparser* is just the beginning, so stay tuned!
 
