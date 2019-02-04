@@ -20,21 +20,12 @@ library(collapsibleTree)
 
 ## Read drugs
 drugs <- read_csv(file = "data/drugs.csv")
+## convert drug type to factors, we will use that later
 drugs$type <- as.factor(drugs$type)
+## if the drug state is NA then mark it as "Unknow"
 drugs$state <- fct_explicit_na(drugs$state, "Unknown")
 ## Read Groups
 drug_groups <- read_csv("data/drug_groups.csv")
-drugs_all <- drugs %>%
-  select(name, primary_key, type , state, created) %>%
-  full_join(drug_groups, by = c("primary_key" = "parent_key")) %>%
-  rename(group = "text") %>%
-  mutate(created_year = year(created),
-         created_month = month(created)) %>%
-  group_by(created_year, created_month, group, state)
-
-drugs_df <- reactiveValues(data = drugs_all %>%
-                             select(name, type, state, group, created_year, created_month)) 
-
 ```
 
 ## Objective
@@ -71,34 +62,87 @@ write_csv(drugs, "data/drugs.csv")
 write_csv(drugs, "data/drug_groups.csv")
 ```
 
+## Visualize drugs using Collapsible Tree
+To browse our drugs the first logical thing to do is to read the data
+
+```{r eval=FALSE, highlight=TRUE}
+## Read drugs
+drugs <- read_csv(file = "data/drugs.csv")
+## convert drug type to factors, we will use that later
+drugs$type <- as.factor(drugs$type)
+## if the drug state is NA then mark it as "Unknow"
+drugs$state <- fct_explicit_na(drugs$state, "Unknown")
+## Read Groups
+drug_groups <- read_csv("data/drug_groups.csv")
+```
+
+We have `r nrow(drugs)` different drugs within `r nrow(drug_groups)` differnt groups. Browsing all these data in regular datatable will be a little frustrating. Hence, we need to build some visual filters to enable drugs researcher to focus only on the drugs subset she/he needs. That is where the need to the `Collapsible Tree` package emerges.
+
+So, now we will build the tree data frame with the features we want to filter our main dataframe with:
+
+- `Drug State` -> filter drugs based on its stats {`r levels(drugs$state)`}
+- `Drug group` -> filter drugs based on its group {`r unique(drug_groups$text)`}
+- `Created Year` -> filter drugs based inserted in database on certain year.
+- `Created month` -> filter drugs based inserted in database on certain month.
+
+```{r}
+drugs_all <- drugs %>%
+  ## The features we want to use on our filters and display in the table
+  select(name, primary_key, type , state, created) %>%
+  ## join datasets using drug primary key
+  full_join(drug_groups, by = c("primary_key" = "parent_key")) %>%
+  ## name properly the group feature
+  rename(group = "text") %>%
+  ## extract the year and month of drug database insertion
+  mutate(created_year = year(created),
+         created_month = month(created)) %>%
+  group_by(created_year, created_month, group, state)
+```
+
+
+Now we display the tree levels so user can arrange them dynamically to filter drugs based on her/his preferences
+
+```{r}
+inputPanel(
+  ## input so user can build the tree filters based on her/his preference
+  selectInput(
+  "hierarchy",
+  "Tree hierarchy",
+  choices = c("created_year", "created_month", "group", "state"),
+  ## initial selected tree levels
+  selected = c("group", "state"),
+  multiple = TRUE
+  ))
+```
+
+The final step is to build the tree itself based on the new dataset
+
+```{r}
+renderCollapsibleTree({
+  drugs_all %>%
+  ## number of drugs within each tree level/sublevel
+  summarize(`Number of Drugs` = n()) %>%
+  collapsibleTreeSummary(
+  hierarchy = input$hierarchy,
+  root = "Drugs",
+  ## will be used later to get filter values
+  inputId = "node",
+  width = 800,
+  ## node tool tip text
+  attribute = "Number of Drugs"
+  )
+})
+```
+
+
 ## Inputs and Outputs
 
 You can embed Shiny inputs and outputs in your document. Outputs are automatically updated whenever inputs change.  This demonstrates how a standard R plot can be made interactive by wrapping it in the Shiny `renderPlot` function. The `selectInput` and `sliderInput` functions create the input widgets used to drive the plot.
 
 ```{r eruptions, echo=FALSE}
-     inputPanel(
-      selectInput(
-        "hierarchy", "Tree hierarchy",
-        choices = c(
-          "created_year", "created_month", "group", "state"
-        ),
-        selected = c("group", "state"),
-        multiple = TRUE
-      )
-    )
-
-renderCollapsibleTree({
-    drugs_all %>%
-      summarize(`Number of Drugs` = n()) %>%
-      collapsibleTreeSummary(
-        hierarchy = input$hierarchy,
-        root = "Drugs",
-        inputId = "node",
-        width = 800,
-        attribute = "Number of Drugs"
-      )
-})
-  
+drugs_df <- reactiveValues(data = drugs_all %>%
+                             ## the filter features
+                             select(name, type, state, group, created_year, created_month)) 
   observeEvent(input$node, {
     tree_list <- input$node
     fltr_str <- ""
