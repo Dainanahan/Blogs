@@ -18,8 +18,11 @@ I can verify the groups from here (https://www.drugbank.ca/drugs), I will need t
 drugs <- read_csv("data/drugs.csv")
 drugs_groups <- read_csv("data/drug_groups.csv")
 drugs$fda_approved <- is.na(drugs$fda_label)
-table(drugs_groups$text)
-barplot(table(drugs_groups$text))
+ggplot(drugs_groups, aes(x = text, fill = as.factor(text))) +
+  geom_bar()
+  
+# table(drugs_groups$text)
+# barplot(table(drugs_groups$text))
 ```
 
 
