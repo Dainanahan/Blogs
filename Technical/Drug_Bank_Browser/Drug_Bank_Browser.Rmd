@@ -9,7 +9,6 @@ runtime: shiny
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(shiny)
-library(dbparser)
 library(collapsibleTree)
 require(colorspace)
 library(DT)
@@ -41,14 +40,36 @@ drugs_df <- reactiveValues(data = drugs_all %>%
 ## Objective
 In this tutorial we will build a shiny application to browse [Drug Bank Database](https://www.drugbank.ca) drugs main features based on our developed package [dbparser](https://dainanahan.github.io/dbparser/index.html), [Collapsible Tree package](https://github.com/AdeelK93/collapsibleTree) and [Shiny DataTable package](https://rstudio.github.io/DT/).
 
-Through this tutorial you will leanr:
+Through this tutorial you will learn:
 
 - How to parse Drugbank database and save desired dataset from it.
 - Visualize data using *Collapsible Tree* using dynamic features.
 - Build Dynamic filters to display tree selected node rows.
 
 
+## Parse DrugBank database
+Dealing with `dbparser` is quite straightforward as all what you need to do is:
 
+- downloading the public `DrugBank` database,
+- then, giving its physical location to `get_xml_db_rows` method.
+- and findally, calling your favourit parser to return a regular csv drug related dataset.
+
+```{r eval=FALSE, highlight=TRUE}
+library(dbparser)
+library(reader)
+## parse data from XML and save it to memory
+get_xml_db_rows("drugbank_record.xml")
+
+## load drugs data
+drugs <- parse_drug()
+
+## load drug groups data
+drug_groups <- parse_drug_groups()
+
+## save datasets to use them later
+write_csv(drugs, "data/drugs.csv")
+write_csv(drugs, "data/drug_groups.csv")
+```
 
 ## Inputs and Outputs
 
