@@ -9,6 +9,7 @@ runtime: shiny
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(shiny)
+library(dbparser)
 library(collapsibleTree)
 require(colorspace)
 library(DT)
@@ -37,9 +38,17 @@ drugs_df <- reactiveValues(data = drugs_all %>%
 
 ```
 
-This R Markdown document is made interactive using Shiny. Unlike the more traditional workflow of creating static reports, you can now create documents that allow your readers to change the assumptions underlying your analysis and see the results immediately. 
+## Objective
+In this tutorial we will build a shiny application to browse [Drug Bank Database](https://www.drugbank.ca) drugs main features based on our developed package [dbparser](https://dainanahan.github.io/dbparser/index.html), [Collapsible Tree package](https://github.com/AdeelK93/collapsibleTree) and [Shiny DataTable package](https://rstudio.github.io/DT/).
 
-To learn more, see [Interactive Documents](http://rmarkdown.rstudio.com/authoring_shiny.html).
+Through this tutorial you will leanr:
+
+- How to parse Drugbank database and save desired dataset from it.
+- Visualize data using *Collapsible Tree* using dynamic features.
+- Build Dynamic filters to display tree selected node rows.
+
+
+
 
 ## Inputs and Outputs
 
@@ -129,25 +138,6 @@ construct_filter <- function(key, value, prev_filter = "") {
   }
 }
 ```
-
-## Embedded Application
-
-It's also possible to embed an entire Shiny application within an R Markdown document using the `shinyAppDir` function. This example embeds a Shiny application located in another directory:
-
-```{r tabsets, echo=FALSE}
-shinyAppDir(
-  system.file("examples/06_tabsets", package = "shiny"),
-  options = list(
-    width = "100%", height = 550
-  )
-)
-```
-
-Note the use of the `height` parameter to determine how much vertical space the embedded application should occupy.
-
-You can also use the `shinyApp` function to define an application inline rather then in an external directory.
-
-In all of R code chunks above the `echo = FALSE` attribute is used. This is to prevent the R code within the chunk from rendering in the document alongside the Shiny components.
 
 
 
