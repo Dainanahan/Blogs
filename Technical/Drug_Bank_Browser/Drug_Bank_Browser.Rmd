@@ -272,3 +272,16 @@ DT::renderDataTable({
 })
 ```
 
+-----
+
+## Conclusion
+We show how to use `dbparser` package to build interactive browser for drug bank database. Also we consider it a hint to our coming application *Drug Bank Browser*, so stay tuned!
+
+-----
+
+## About the Authors
+We are a team of data scientists called *[Dainanahan](http://dainanahan.github.io)*. 
+Our aim is to provide practitioners in the field of drug discovery with 
+useful tools that would make their life easier and help increase their 
+productivity. This suite of tools that we are planning to make is codenamed 
+*[DrugVerse](https://www.researchgate.net/project/DrugVerse-A-Suite-of-Tools-for-Use-in-Drug-Discovery)*.
