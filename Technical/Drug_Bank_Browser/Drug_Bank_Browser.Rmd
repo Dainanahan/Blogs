@@ -1,5 +1,5 @@
 ---
-title: "Drug Bank Browser"
+title: "Browsing the DrugBank Database"
 author: "Mohammed Ali; Ali Ezzat"
 date: "February 4, 2019"
 output: html_document
@@ -18,127 +18,168 @@ library(lubridate)
 library(forcats)
 library(collapsibleTree)
 
-## Read drugs
+## read drugs
 drugs <- read_csv(file = "data/drugs.csv")
+
 ## convert drug type to factors, we will use that later
 drugs$type <- as.factor(drugs$type)
-## if the drug state is NA then mark it as "Unknow"
+
+## if the drug state is NA, then mark it as "Unknown"
 drugs$state <- fct_explicit_na(drugs$state, "Unknown")
-## Read Groups
+
+## read groups
 drug_groups <- read_csv("data/drug_groups.csv")
 ```
 
 ## Objective
-In this tutorial we will build a shiny application to browse [Drug Bank Database](https://www.drugbank.ca) drugs main features based on our developed package [dbparser](https://dainanahan.github.io/dbparser/index.html), [Collapsible Tree package](https://github.com/AdeelK93/collapsibleTree) and [Shiny DataTable package](https://rstudio.github.io/DT/).
+In this tutorial, we will build a Shiny application to browse the *[DrugBank](https://www.drugbank.ca)* database. Specifically, we will display drugs-related information that is stored in *DrugBank* with the help of the 
+following packages: main features based on our developed package
+
+- *[dbparser](https://dainanahan.github.io/dbparser/index.html)*, a package that 
+    we developed earlier for parsing the XML-formatted *DrugBank* database
+- *[collapsibleTree](https://github.com/AdeelK93/collapsibleTree)*, an 
+    [htmlwidget](http://www.htmlwidgets.org/) that displays Reingold-Tilford 
+    tree diagrams using D3.js
+- *[DataTables (DT)](https://rstudio.github.io/DT/)*, which takes R data frames 
+    and displays them as tables in HTML pages
 
 Through this tutorial you will learn:
 
-- How to parse Drugbank database and save desired dataset from it.
-- Visualize data using *Collapsible Tree* using dynamic features.
-- Build Dynamic filters to display tree selected node rows.
+- How to parse the *DrugBank* database and retrieve the desired data from it.
+- Visualize data using `collapsibleTree` using dynamic features.
+- Build dynamic filters to display table rows corresponding to the selected 
+    tree node.
 
+--------------
 
-## Parse DrugBank database
-Dealing with `dbparser` is quite straightforward as all what you need to do is:
+## Parsing the *DrugBank* database
+Using `dbparser` is quite straightforward. What we need to do is:
 
-- downloading the public `DrugBank` database,
-- then, giving its physical location to `get_xml_db_rows` method.
-- and findally, calling your favourit parser to return a regular csv drug related dataset.
+- Download the *DrugBank* database. Latest release is freely available for 
+    download [here](https://www.drugbank.ca/releases/latest). At the time of 
+    writing this post, the version of *DrugBank* is "**5.1.2**".
+- Pass the physical location of the downloaded data to the 
+    `dbparser::get_xml_db_rows()` method.
+- Call the desired parser function to return an R data frame containing the 
+    intended drugs-related information.
+- Save retrieved data in CSV format.
 
 ```{r eval=FALSE, highlight=TRUE}
 library(dbparser)
-library(reader)
-## parse data from XML and save it to memory
-get_xml_db_rows("drugbank_record.xml")
+library(readr)
 
-## load drugs data
+## parse data from DrugBank's XML and save it to memory
+get_xml_db_rows("drugbank_database.xml")
+
+## retrieve drugs basic data
 drugs <- parse_drug()
 
-## load drug groups data
+## retrieve drugs groups data
 drug_groups <- parse_drug_groups()
 
 ## save datasets to use them later
 write_csv(drugs, "data/drugs.csv")
-write_csv(drugs, "data/drug_groups.csv")
+write_csv(drug_groups, "data/drug_groups.csv")
 ```
 
-## Visualize drugs using Collapsible Tree
-To browse our drugs the first logical thing to do is to read the data
+--------------
+
+## Visualize drugs data with `collapsibleTree`
+To *browse* our drugs data, we first load the data.
 
 ```{r eval=FALSE, highlight=TRUE}
-## Read drugs
+## load drugs basic data
 drugs <- read_csv(file = "data/drugs.csv")
-## convert drug type to factors, we will use that later
+
+## convert drug 'type' to factors (we will use that later)
 drugs$type <- as.factor(drugs$type)
-## if the drug state is NA then mark it as "Unknow"
+
+## if the drug 'state' is NA, then mark it as "Unknown"
 drugs$state <- fct_explicit_na(drugs$state, "Unknown")
-## Read Groups
+
+## load drugs groups data
 drug_groups <- read_csv("data/drug_groups.csv")
 ```
 
-We have `r nrow(drugs)` different drugs within `r nrow(drug_groups)` differnt groups. Browsing all these data in regular datatable will be a little frustrating. Hence, we need to build some visual filters to enable drugs researcher to focus only on the drugs subset she/he needs. That is where the need to the `Collapsible Tree` package emerges.
+We have `r nrow(drugs)` different drugs within `r nrow(drug_groups)` different 
+groups. Browsing all these data in a regular data table can be a little 
+inconvenient. Hence, we shall build a *visual* means of filtering the data to 
+enable users to focus only on the subset of drugs that they want. That is where 
+the `collapsibleTree` package comes in.
 
-So, now we will build the tree data frame with the features we want to filter our main dataframe with:
+Now, we will build the tree's data frame with the features that we wish to 
+filter our main data frame with:
 
-- `Drug State` -> filter drugs based on its stats {`r levels(drugs$state)`}
-- `Drug group` -> filter drugs based on its group {`r unique(drug_groups$text)`}
-- `Created Year` -> filter drugs based inserted in database on certain year.
-- `Created month` -> filter drugs based inserted in database on certain month.
+- `group`: filter drugs based on their *groups* {`r unique(drug_groups$text)`}
+- `state`: filter drugs based on their *states* {`r levels(drugs$state)`}
+- `created_year`:  filter drugs based on which *year* they were inserted into the database
+- `created_month`: filter drugs based on which *month* they were inserted into the database
 
 ```{r}
 drugs_all <- drugs %>%
   ## The features we want to use on our filters and display in the table
   select(name, primary_key, type , state, created) %>%
+
   ## join datasets using drug primary key
   full_join(drug_groups, by = c("primary_key" = "parent_key")) %>%
+
   ## name properly the group feature
   rename(group = "text") %>%
+
   ## extract the year and month of drug database insertion
   mutate(created_year = year(created),
-         created_month = month(created)) %>%
-  group_by(created_year, created_month, group, state)
+         created_month = month(created))
 ```
 
-
-Now we display the tree levels so user can arrange them dynamically to filter drugs based on her/his preferences
+We then display the tree levels so that the user can arrange them dynamically 
+to filter the drugs based on her/his preferences.
 
 ```{r}
 inputPanel(
   ## input so user can build the tree filters based on her/his preference
-  selectInput(
-  "hierarchy",
-  "Tree hierarchy",
-  choices = c("created_year", "created_month", "group", "state"),
-  ## initial selected tree levels
-  selected = c("group", "state"),
-  multiple = TRUE
-  ))
+  selectInput (
+    "hierarchy",
+    "Tree hierarchy",
+    choices = c("group", "state", "created_year", "created_month"),
+    selected = c("group", "state"),    ## initially selected tree levels
+    multiple = TRUE)
+)
 ```
 
-The final step is to build the tree itself based on the new dataset
+The final step is to build the tree itself based on the new dataset.
 
 ```{r}
 renderCollapsibleTree({
   drugs_all %>%
-  ## number of drugs within each tree level/sublevel
-  summarize(`Number of Drugs` = n()) %>%
+
+  ## specify (for collapsibleTree) which fields to filter in the displayed tree with
+  group_by(created_year, created_month, group, state) %>% 
+  summarize() %>%
+
+  ## display tree
   collapsibleTreeSummary(
-  hierarchy = input$hierarchy,
-  root = "Drugs",
-  ## will be used later to get filter values
-  inputId = "node",
-  width = 800,
-  ## node tool tip text
-  attribute = "Number of Drugs"
+    hierarchy = input$hierarchy,
+    root = "Drugs",
+    inputId = "node",               ## will be used later to get filter values
+    width = 800,
+    tooltip = FALSE
   )
 })
 ```
 
+--------------
 
 ## Display Results
 
-Now we need to filter the drugs dataset based on the clicked node value and position in the tree.
-For example, if the tree is showing only two levels `state` and `created year`, clicking on certain state like *solid* will get all solid drugs distributed on all available years. but clicking *2016* under *solid* state will return solid drugs only created in *2016*.
+At this point, we want the user to be able to filter the data using the 
+displayed tree. Specifically, whenever the user clicks a node, we want the 
+retrieved drugs to be filtered by the clicked node. 
+
+For example, if the tree is showing only two levels, `state` followed by 
+`created_year`, then clicking on the *solid* state would get all the *solid* 
+drugs in the *DrugBank* database. However, if the year *2016* under the *solid* 
+state was clicked instead, then only solid drugs created in *2016* would be 
+returned.
 
 ```{r echo=FALSE}
 drugs_df <- reactiveValues(data = drugs_all %>%
@@ -199,72 +240,72 @@ add_and <- function(x) {
 
 ```
 
-
-So, first we build the reactive dataframe for the datatable. It has to be reactive as it is changable over clicked filter tree nodes.
+So, first we build the *reactive* data frame for the data table. 
+It has to be reactive as it is changeable via the clicked tree nodes used for
+filtering. 
 
 ```{r eval=FALSE}
 drugs_df <- reactiveValues(data = drugs_all %>%
-                             ## the filter features
-                             select(name, type, state, group, created_year, created_month)) 
+                               ## the filter features
+                                select(name, type, state, group, created_year, created_month)) 
 ```
 
-Now, we observe tree node `click` event to filter drugs data table
+Now, we observe the tree node `click` event to apply filtering to the drugs 
+data table.
 
 ```{r eval=FALSE}
-  ## tree clicked node
-  observeEvent(input$node, {
+## tree clicked node
+observeEvent(input$node, {
     tree_list <- input$node
+    
     ## filter statement that we are building
     fltr_str <- ""
     if (!is.null(tree_list[["created_year"]])) {
-      fltr_str <- add_and(fltr_str)
-      fltr_str <-
+        fltr_str <- add_and(fltr_str)
+        fltr_str <-
         paste0(fltr_str, "created_year", "=='", tree_list[["created_year"]], "'")
     }
     
     if (!is.null(tree_list[["created_month"]])) {
-      ## join multiple filters
-      fltr_str <- add_and(fltr_str)
-      fltr_str <-
-        paste0(fltr_str,
-               "created_month",
-               "=='",
-               trimws(tree_list[["created_month"]]),
-               "'")
+        ## join multiple filters
+        fltr_str <- add_and(fltr_str)
+        fltr_str <-
+            paste0(fltr_str,
+                   "created_month",
+                   "=='",
+                   trimws(tree_list[["created_month"]]),
+                   "'")
     }
     
     if (!is.null(tree_list[["group"]])) {
-      fltr_str <- add_and(fltr_str)
-      fltr_str <-
-        paste0(fltr_str, "group", "=='", tree_list[["group"]], "'")
+        fltr_str <- add_and(fltr_str)
+        fltr_str <- paste0(fltr_str, "group", "=='", tree_list[["group"]], "'")
     }
     
     if (!is.null(tree_list[["state"]])) {
-      fltr_str <- add_and(fltr_str)
-      fltr_str <-
-        paste0(fltr_str, "state", "=='", tree_list[["state"]], "'")
+        fltr_str <- add_and(fltr_str)
+        fltr_str <-paste0(fltr_str, "state", "=='", tree_list[["state"]], "'")
     }
     if (fltr_str == "") {
-      drugs_df$data <- drugs_all
+        drugs_df$data <- drugs_all
     } else {
-      drugs_df$data <- drugs_all %>% filter_(fltr_str)
+        drugs_df$data <- drugs_all %>% filter_(fltr_str)
     }
-    
-  })
+})
 ```
 
-This is the small helper function we used to join multiple conditions
+This is the small helper function that we used to join multiple conditions.
 
 ```{r eval=FALSE}
 add_and <- function(x) {
-  if (x != "") {
-    x <- paste0(x, "&")
-  }
-  return(x)
+    if (x != "") {
+        x <- paste0(x, "&")
+    }
+    return(x)
 }
 ```
 
-Finally we display the filtered datatabel
+Finally, we display the filtered data table.
 
 ```{r eval=FALSE}
 DT::renderDataTable({
@@ -275,7 +316,10 @@ DT::renderDataTable({
 -----
 
 ## Conclusion
-We show how to use `dbparser` package to build interactive browser for drug bank database. Also we consider it a hint to our coming application *Drug Bank Browser*, so stay tuned!
+In this post, we showed how to use the `dbparser` package to build an 
+interactive browser for the *DrugBank* database. This post is also a 
+prelude to our upcoming application, *DrugBank Browser*, that is intended to 
+be used for all sorts of neat exploratory analysis stuff, so stay tuned!
 
 -----
 
